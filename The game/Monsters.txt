@@ -1,0 +1,9 @@
+Name 	Health	Damage	Speed	Defense	Exp	File
+Bat 	10	4	5	1	15	pictures\\bat.png
+Dog 	12	12	12	12	15	pictures\\dog.png
+Fish 	2	5	1	3	15	pictures\\fish.png
+Lion 	4	2	1	6	15	pictures\\lion.png
+Badger 	4	1	3	5	15	pictures\\badger.png
+
+
+End

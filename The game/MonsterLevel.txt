@@ -1,0 +1,9 @@
+Name 	File
+Bat 	"bat.png"
+Dog 	"dog.png"
+Fish 	"fish.png"
+Lion 	"lion.png"
+Badger 	"badger.png"
+
+
+End
