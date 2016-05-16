@@ -20,6 +20,12 @@ public class Wizard
    static int teleportEnergy=0;
    static int requiredEnergy=7;
    static int maxEnergy=21;
+   static int level;
+   static int hp;
+   static int attack;
+   static String[] Inventory;
+   static String[] equipped Weapon;
+   //index 0=name, 1=damage, 2=attack, 
    static ImageIcon weezard = new ImageIcon("pictures\\wiz.png");
    //Game2 test=new Game2();
    public Wizard(int length,int tall)
