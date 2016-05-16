@@ -566,7 +566,7 @@ public class Game2 extends JPanel {
       player = wiz.getPic();
       frame = new JFrame("Dungeon");
       frame.add(new Game2());
-      int windowx=width*50-50*3/4+100;
+      int windowx=width*50-50*3/4;
       int windowy=height*50-50/4;
       frame.setSize(windowx,windowy);
       frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
