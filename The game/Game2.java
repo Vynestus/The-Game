@@ -1,5 +1,3 @@
-
-
 import java.awt.Color;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,7 +18,7 @@ import java.util.*;
 public class Game2 extends JPanel {
    //private static MazeGenerator map= null;
    private static Wizard wiz;
-   static CombatInitiator startCombat;
+   static CombatInitiator startCombat; 
    static Scanner c= new Scanner(System.in);
    public static int [][] north;
    public static int [][] south;
@@ -38,11 +36,14 @@ public class Game2 extends JPanel {
    static int maxWidth=22;
    static int minHeight=10;
    static int minWidth=11;
+   static int maxLevel;
+   static int monsterLevel;
    static String input;
    public static boolean combat=false;
    static int counter=0;
    static int movingl=0;
    static int movingu=0;
+   public static boolean buttons=true;
    static ImageIcon player;
    static ImageIcon stairsUp = new ImageIcon("pictures\\stairsup.png");
    static ImageIcon stairsDown = new ImageIcon("pictures\\stairsdown.png");
@@ -117,8 +118,29 @@ public class Game2 extends JPanel {
       int wizplacex=wiz.getX()*50-25+movingl;
       int wizplacey=wiz.getY()*50-23+movingu;
       g2d.drawImage(player.getImage(),wizplacex,wizplacey,48,48,null);
+      if (buttons)
+      {
+      JPanel panel = new JPanel();
+      panel.setLayout(new FlowLayout());
+      add(panel,BorderLayout.EAST);
+      JButton button1 = new JButton("test");
+      button1.addActionListener(new stats());
+      panel.add(button1);
+      buttons=false;
+      }
+   
    }
-	
+   private class stats implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         // 0 is name, 1-health, 2-damage,3-speed,4-defense,5-exp,6-image)
+         for (int x=0;x<7;x++)
+         {
+            System.out.println("test");
+         }
+      }
+   }
     // 1 means wall
          // 0 means empty
    public int[][] getNorth()
@@ -151,6 +173,11 @@ public class Game2 extends JPanel {
       //System.out.println(stairs[0]+" "+stairs[1]+" "+stairs[2]+" "+ stairs[3]);
       //System.out.println(currentMap+" is "+width+" "+height + " compared "+mapList.get(currentMap).getWidth()+" "+mapList.get(currentMap).getHeight());
      // mapList.get(currentMap).printWalls();
+     if (currentMap==maxLevel)
+      {
+      stairs[2]=0;
+      stairs[3]=0;
+      }
    }
    public static void newMap(int h, int w)
    {
@@ -215,6 +242,11 @@ public class Game2 extends JPanel {
       else 
          changeLevel();
       wiz.setXY(stairs[0],stairs[1]);
+      if (currentMap==maxLevel)
+      {
+      stairs[2]=0;
+      stairs[3]=0;
+      }
          
    }
   
@@ -522,9 +554,11 @@ public class Game2 extends JPanel {
       }
    
    }
-   public static void main(String[] args) 
+   public static void dungeonTime(int depth,String biome,int level) 
    {
       //mapList= new ArrayList<MazeGenerator>();
+      maxLevel=depth;
+      monsterLevel=level;
       Scanner c= new Scanner(System.in);
       newMap(10,15);
       wiz= new Wizard(width,height);
@@ -532,7 +566,7 @@ public class Game2 extends JPanel {
       player = wiz.getPic();
       frame = new JFrame("Dungeon");
       frame.add(new Game2());
-      int windowx=width*50-50*3/4;
+      int windowx=width*50-50*3/4+100;
       int windowy=height*50-50/4;
       frame.setSize(windowx,windowy);
       frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
@@ -595,7 +629,8 @@ public class Game2 extends JPanel {
                   break;
                case "help":
                   case "?":
-                  System.out.println ("move/go \n teleport \n rest/sleep/wait \n stairs");
+                  System.out.println ("move(direction)/go (direction)/w-a-s-d/right-left-up-down"+" "+ 
+                  "  \n teleport \n rest/sleep/wait \n stairs");
                   break;
                case "stairs":
                   //System.out.println(wiz.getY()+" "+wiz.getX()+" "+items[wiz.getY()][wiz.getX()]);
@@ -607,6 +642,9 @@ public class Game2 extends JPanel {
                   break;
                case "repaint":
                   refresh();
+                  break;
+                  case "cheatDown":
+                  goDown();
                   break;
                case "path":
                   lighter();
