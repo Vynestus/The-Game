@@ -24,7 +24,7 @@ public class Wizard
    static int hp;
    static int attack;
    static String[] Inventory;
-   static String[] equipped Weapon;
+   static String[] equippedWeapon;
    //index 0=name, 1=damage, 2=attack, 
    static ImageIcon weezard = new ImageIcon("pictures\\wiz.png");
    //Game2 test=new Game2();
