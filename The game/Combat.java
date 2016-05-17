@@ -20,24 +20,20 @@ public class Combat extends JPanel {
    static ImageIcon monster;
    static String[] stat;
    public static boolean done;
+   public int clicks = 0;
    static ImageIcon weezard = new ImageIcon("wiz.png");
    private int number, count;
    public Combat()
    {
       setLayout(new FlowLayout());
-      number = 37;
       count = 0;
       done=false;
       stat=CombatInitiator.stats;
       
-      monster=new ImageIcon(stat[5]);
+      monster=new ImageIcon(stat[6]);
+      //System.out.println("||"+stat[6]+"||");
       
-     /*
-      label1 = new JLabel("37");
-      label1.setFont(new Font("Serif", Font.BOLD, 100)); 
-      label1.setForeground(Color.blue);
-      add(label1);
-      */
+     
       JPanel panel = new JPanel();
       panel.setLayout(new FlowLayout());
       add(panel,BorderLayout.SOUTH);
@@ -50,6 +46,8 @@ public class Combat extends JPanel {
       button1.addActionListener(new stats());
       panel.add(button1);
       
+      JLabel label1 = new JLabel(stat[0]);
+      panel.add(label1);
       JButton button2 = new JButton("Quit Completely");
       button2.addActionListener(new quitcompletely());
       panel.add(button2,BorderLayout.SOUTH);
@@ -57,7 +55,7 @@ public class Combat extends JPanel {
       JButton button3 = new JButton("Quit");
       button3.addActionListener(new quit());
       panel.add(button3,BorderLayout.EAST);
-      /*
+            /*
       label2 = new JLabel("Iterations: 0");
       add(label2);
    */
@@ -66,9 +64,9 @@ public class Combat extends JPanel {
    {
       public void actionPerformed(ActionEvent e)
       {
-         // 0 is name, 1-health, 2-damage,3-speed,4-defense,5-exp,6-image)
-         	for (int x=0;x<7;x++)
-            {
+         // 0 is name, 1-health, 2-damage,3-speed,4-defense,5-exp,6-image
+         for (int x=0;x<7;x++)
+         {
             System.out.println(CombatInitiator.stats[x]);
          }
       }

@@ -19,8 +19,10 @@ public class CombatInitiator
    static boolean dead=false;
    public static boolean startCombat(String creature)
    { 
-   getStats(creature);
-   dead=false;
+      dead=false;
+      getStats(creature);
+      if (!dead)
+      {
       cFrame = new JFrame("COMBAT HAS STARTED!!!");
       cFrame.setSize(1000, 500);
       cFrame.setLocation(1280/2-500, 1024/2-250);
@@ -32,6 +34,7 @@ public class CombatInitiator
       {
          dead=Combat.deadYet();
       }
+      }
       return true;
    }
    public static void getStats(String name)
@@ -42,7 +45,7 @@ public class CombatInitiator
       File list = new File("Monsters.txt");
       try {
          Scanner sc = new Scanner(list);
-         while (!munster.equals(name)&&!munster.equals("End"))
+         while (!munster.equalsIgnoreCase(name)&&!munster.equals("End"))
          {
             munster=sc.next();
             //System.out.println(munster);
@@ -54,17 +57,17 @@ public class CombatInitiator
          }
          else
          {
-         stats[0]=munster;
-         for (int x=1;x<7;x++)
-         {
-            stats[x]=sc.next();
+            stats[0]=munster;
+            for (int x=1;x<7;x++)
+            {
+               stats[x]=sc.next();
+            }
+            for (int x=0;x<7;x++)
+            {
+               System.out.print(stats[x]+"\t");
+            }
+            System.out.println();
          }
-         for (int x=0;x<7;x++)
-         {
-            System.out.print(stats[x]+"\t");
-         }
-         System.out.println();
-      }
       }
       catch (FileNotFoundException e) 
       { 
@@ -75,6 +78,7 @@ public class CombatInitiator
    }
    public static void endCombat()
    {
-      cFrame.dispose();
+   if (!dead)
+         cFrame.dispose();
    }
 }
