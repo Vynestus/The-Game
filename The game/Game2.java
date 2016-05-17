@@ -43,7 +43,7 @@ public class Game2 extends JPanel {
    static int counter=0;
    static int movingl=0;
    static int movingu=0;
-   public static boolean buttons=true;
+   public static boolean buttons=false;
    static ImageIcon player;
    static ImageIcon stairsUp = new ImageIcon("pictures\\stairsup.png");
    static ImageIcon stairsDown = new ImageIcon("pictures\\stairsdown.png");
@@ -120,13 +120,13 @@ public class Game2 extends JPanel {
       g2d.drawImage(player.getImage(),wizplacex,wizplacey,48,48,null);
       if (buttons)
       {
-      JPanel panel = new JPanel();
-      panel.setLayout(new FlowLayout());
-      add(panel,BorderLayout.EAST);
-      JButton button1 = new JButton("test");
-      button1.addActionListener(new stats());
-      panel.add(button1);
-      buttons=false;
+         JPanel panel = new JPanel();
+         panel.setLayout(new FlowLayout());
+         add(panel,BorderLayout.EAST);
+         JButton button1 = new JButton("test");
+         button1.addActionListener(new stats());
+         panel.add(button1);
+         buttons=false;
       }
    
    }
@@ -173,11 +173,7 @@ public class Game2 extends JPanel {
       //System.out.println(stairs[0]+" "+stairs[1]+" "+stairs[2]+" "+ stairs[3]);
       //System.out.println(currentMap+" is "+width+" "+height + " compared "+mapList.get(currentMap).getWidth()+" "+mapList.get(currentMap).getHeight());
      // mapList.get(currentMap).printWalls();
-     if (currentMap==maxLevel)
-      {
-      stairs[2]=0;
-      stairs[3]=0;
-      }
+      
    }
    public static void newMap(int h, int w)
    {
@@ -244,10 +240,10 @@ public class Game2 extends JPanel {
       wiz.setXY(stairs[0],stairs[1]);
       if (currentMap==maxLevel)
       {
-      stairs[2]=0;
-      stairs[3]=0;
+         System.out.println("In the darkness of this void, you find the ");
       }
-         
+      draw();
+      draw();
    }
   
    public static void combat()
@@ -566,7 +562,7 @@ public class Game2 extends JPanel {
       player = wiz.getPic();
       frame = new JFrame("Dungeon");
       frame.add(new Game2());
-      int windowx=width*50-50*3/4+100;
+      int windowx=width*50-50*3/4;
       int windowy=height*50-50/4;
       frame.setSize(windowx,windowy);
       frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
@@ -574,6 +570,7 @@ public class Game2 extends JPanel {
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       int waiting=0;
       input="";
+      wiz.setXY(stairs[0],stairs[1]);
       while (!input.equals("exit"))
       {
          if (combat)
@@ -630,7 +627,7 @@ public class Game2 extends JPanel {
                case "help":
                   case "?":
                   System.out.println ("move(direction)/go (direction)/w-a-s-d/right-left-up-down"+" "+ 
-                  "  \n teleport \n rest/sleep/wait \n stairs");
+                     "  \n teleport \n rest/sleep/wait \n stairs");
                   break;
                case "stairs":
                   //System.out.println(wiz.getY()+" "+wiz.getX()+" "+items[wiz.getY()][wiz.getX()]);
@@ -643,7 +640,7 @@ public class Game2 extends JPanel {
                case "repaint":
                   refresh();
                   break;
-                  case "cheatDown":
+               case "cheatDown":
                   goDown();
                   break;
                case "path":
@@ -681,5 +678,9 @@ public class Game2 extends JPanel {
       }
       System.out.println("test2");
       System.exit(0);
+   }
+   public static void main(String[] args) 
+   {
+      dungeonTime(3,"plains",0);
    }
 }
