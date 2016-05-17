@@ -39,6 +39,7 @@ public class Game2 extends JPanel {
    static int maxLevel;
    static int monsterLevel;
    static String input;
+   public static boolean independant=false;
    public static boolean combat=false;
    static int counter=0;
    static int movingl=0;
@@ -238,18 +239,19 @@ public class Game2 extends JPanel {
       else 
          changeLevel();
       wiz.setXY(stairs[0],stairs[1]);
+      draw();
+      draw();
       if (currentMap==maxLevel)
       {
-         System.out.println("In the darkness of this void, you find the ");
+         System.out.println("In the darkness of this stairwell, you see a bright light. There lays, a sword on a pedastal. This is it.");
+         frame.dispose();
       }
-      draw();
-      draw();
    }
   
-   public static void combat()
+   public static void combat(String monster)
    {
       frame.setVisible(false);
-      if (startCombat.startCombat("Lion"));
+      if (startCombat.startCombat(monster));
       startCombat.endCombat();
       frame.setVisible(true);
    }
@@ -567,7 +569,16 @@ public class Game2 extends JPanel {
       frame.setSize(windowx,windowy);
       frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
       frame.setVisible(true);
-      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      if (independant)
+      {
+         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         //System.out.println("it works");
+      }
+      else
+      {
+         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+         //System.out.println("it doesn't works");
+      }
       int waiting=0;
       input="";
       wiz.setXY(stairs[0],stairs[1]);
@@ -653,9 +664,9 @@ public class Game2 extends JPanel {
                   draw();
                   break;
                case "test":
-                  combat();
+                  String tempMonster=c.next();
+                  combat(tempMonster);
                   break;
-            
             }
             refresh();
          
@@ -681,6 +692,7 @@ public class Game2 extends JPanel {
    }
    public static void main(String[] args) 
    {
+      independant=true;
       dungeonTime(3,"plains",0);
    }
 }
