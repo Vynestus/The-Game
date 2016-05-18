@@ -37,5 +37,3 @@ test5
 Archer
 test7
 Rogue
-
-End

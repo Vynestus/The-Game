@@ -26,6 +26,7 @@ public class CharacterCreation extends JPanel {
    public static JFrame cFrame;
    static String charClass;
    JPanel panel;
+   public static String tempClass;
    public static String name;
    public static boolean questionnaire = false;
    public static String[] temp;
@@ -68,22 +69,21 @@ public class CharacterCreation extends JPanel {
                scanner=sc.nextLine();
                //System.out.println(scanner);
                
-               if(scanner.equals("End"))
-                  counter=4;
-               else
-               {
+               
                //System.out.println(scanner+ " t");
-                  panel.add(new JLabel(scanner));
-                  for (int yz=0;yz<4;yz++)
-                  {
-                     questions.add(sc.nextLine());
-                     classQuestions[yz]=sc.nextLine();
-                  }
+               panel.add(new JLabel(scanner));
+               for (int yz=0;yz<4;yz++)
+               {
+                  questions.add(sc.nextLine());
+                  classQuestions[yz]=sc.nextLine();
                }
+               
             /*for (int yz=0;yz<4;yz++)
                   {
                      System.out.println(classQuestions[yz]);
                   }*/
+               if (!sc.hasNext()) counter=4;
+                  
             }
             catch (FileNotFoundException e) 
             { 
@@ -92,13 +92,18 @@ public class CharacterCreation extends JPanel {
             questionNum++;
             break;
          case 4:
-         String tempClass;
-         else if (classWinner[0]>classWinner[1]&&classWinner[0]>classWinner[2]&&classWinner[0]>classWinner[3])
-         tempClass="Archer";
-         else if (classWinner[0]>classWinner[1]&&classWinner[0]>classWinner[2]&&classWinner[0]>classWinner[3])
-         tempClass="Archer";
-         else if (classWinner[0]>classWinner[1]&&classWinner[0]>classWinner[2]&&classWinner[0]>classWinner[3])
-         tempClass="Archer";
+            
+            if (classWinner[0]>classWinner[1]&&classWinner[0]>classWinner[2]&&classWinner[0]>classWinner[3])
+               tempClass="Archer";
+            else if (classWinner[1]>classWinner[0]&&classWinner[1]>classWinner[2]&&classWinner[1]>classWinner[3])
+               tempClass="Mage";
+            else if (classWinner[2]>classWinner[1]&&classWinner[2]>classWinner[0]&&classWinner[2]>classWinner[3])
+               tempClass="Rogue";
+            else
+               tempClass="Warrior";
+            panel.add(new JLabel("The class suggested for you is "+tempClass));
+            questions.add("Keep suggested class");
+            questions.add("Choose your class");
             break;
          case 5:
             questions.add("Warrior");
@@ -149,11 +154,9 @@ public class CharacterCreation extends JPanel {
                   //System.out.println("hurray");
                   counter=5;
                }
-               else 
-                  System.out.print("");
                break;
             case 3:
-               String tempClass = classQuestions[question.getSelectedIndex()];
+               tempClass = classQuestions[question.getSelectedIndex()];
                if (tempClass.equals("Archer") )
                   classWinner[0]++;
                else if (tempClass.equals("Archer")) classWinner[0]++;
@@ -166,13 +169,23 @@ public class CharacterCreation extends JPanel {
             case 4:
             //archer mage rogue warrior
             
+               if (question.getSelectedItem().equals("Keep suggested class"))
+               {
+                  charClass=tempClass;
+                  done=true;
+                  System.out.println("hello");
+               }
+               else if (question.getSelectedItem().equals("Choose your class"))
+                  counter=5;
+               
+            
                break;
             case 5:
                charClass=question.getSelectedItem().toString();
                done=true;
                //System.out.println(done);
          }
-         if (counter<3&&!questionnaire)
+         if (counter<3)
             counter++;
          if (!done)
          {
@@ -205,7 +218,7 @@ public class CharacterCreation extends JPanel {
    }
    public static String getCharName()
    {
-      System.out.println("hellkhnf;laskndglasd");
+      //System.out.println("hellkhnf;laskndglasd");
       return name;
    }
    public static void characterCreate()
