@@ -21,6 +21,7 @@ public class Combat extends JPanel {
    static String[] stat;
    public static boolean done;
    public int clicks = 0;
+   private static Wizard wiz;
    static ImageIcon weezard = new ImageIcon("wiz.png");
    private int number, count;
    public Combat()
@@ -41,13 +42,18 @@ public class Combat extends JPanel {
       box = new JTextField("37", 5);
       box.setHorizontalAlignment(SwingConstants.RIGHT);
       panel.add(box);
-      */
+      
+      JComboBox attackList = new JComboBox(wiz.getAbilities().toArray());
+      ComboBoxRenderer renderer= new ComboBoxRenderer();
+      renderer.setPreferredSize(new Dimension(200, 130));
+      petList.setRenderer(renderer);
+      petList.setMaximumRowCount(3);
+   */
       JButton button1 = new JButton(monster);
       button1.addActionListener(new stats());
       panel.add(button1);
       
-      JLabel label1 = new JLabel(stat[0]);
-      panel.add(label1);
+      
       JButton button2 = new JButton("Quit Completely");
       button2.addActionListener(new quitcompletely());
       panel.add(button2,BorderLayout.SOUTH);
@@ -58,7 +64,17 @@ public class Combat extends JPanel {
             /*
       label2 = new JLabel("Iterations: 0");
       add(label2);
-   */
+   */JLabel label1 = new JLabel(Game2.wiz.getName());
+      panel.add(label1);
+      String[] temp= new String[Game2.wiz.getAbilities().size()];
+      Game2.wiz.getAbilities().toArray(temp);
+      JComboBox<String> abilities = new JComboBox<String>(temp);
+      /*for(String s:Game2.wiz.getAbilities())
+      {
+         abilities.addItem(s);
+      }*/
+      panel.add(abilities);
+      panel.add(new JLabel("test"));
    }
    private class stats implements ActionListener
    {
@@ -93,4 +109,5 @@ public class Combat extends JPanel {
    {
       return done;
    }
+        
 }

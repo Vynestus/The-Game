@@ -12,12 +12,12 @@ import java.awt.geom.Ellipse2D;
 import javax.swing.JFrame;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
-
+import java.io.*;
 import java.util.*;
 
 public class Game2 extends JPanel {
    //private static MazeGenerator map= null;
-   private static Wizard wiz;
+   public static Wizard wiz;
    static CombatInitiator startCombat; 
    static Scanner c= new Scanner(System.in);
    public static int [][] north;
@@ -53,6 +53,7 @@ public class Game2 extends JPanel {
    static Color wallColor = new Color(0,0,0);
    static Color fogColor = new Color(100,100,100);
    public static JFrame frame; 
+   public static double encounterChance;
    public void paint(Graphics g) 
    {
       Scanner c= new Scanner(System.in);
@@ -292,11 +293,14 @@ public class Game2 extends JPanel {
             movingl=-1*steps;
          else if (mover.equals("left")||mover.equals("west")||mover.equals("w"))
             movingl=steps;
+         encounter();
+            
+            
       //ActionListener action = new ActionListener();
       /*Timer t = new Timer();
       t.setRepeats(true);
       t.setDelay(10);
-      t.start();*/
+      t.start();
       
          Timer timer = new Timer();
          timer.scheduleAtFixedRate(
@@ -317,7 +321,7 @@ public class Game2 extends JPanel {
                   }
                }, 0,150);
          timer.purge();
-      
+      */
       
       }
    }
@@ -546,20 +550,62 @@ public class Game2 extends JPanel {
                   counter++;
                }
             }
-            
          }
-         
       }
-   
    }
-   public static void dungeonTime(int depth,String biome,int level) 
+   public static void encounter()
+   {
+      double encounter=Math.random();
+      //System.out.println(encounter+" "+encounterChance);
+      String scanner="";
+      String target="level"+monsterLevel;
+      //System.out.println(target);
+      if (encounter<encounterChance)
+      {
+         File list = new File("MonsterLevel.txt");
+         try {
+            //System.out.println("SomethingHappend!");
+            Scanner sc = new Scanner(list);
+            while(!scanner.equalsIgnoreCase(target)&&!scanner.equals("End"))
+            {
+               scanner=sc.next();
+               //System.out.println(scanner);
+            }
+            if(scanner.equals("End"))
+            {
+               System.out.println("That level of monster doesn't exist");
+            }
+            else
+            {
+               int numMonsters=Integer.parseInt(sc.next());
+               //System.out.println(numMonsters);
+               encounter=(int)(Math.random()*numMonsters+1);
+               //System.out.println(encounter);
+               for (int xyz=1;xyz<encounter;xyz++)
+               {
+               sc.next();
+               }
+              String monster=sc.next();
+              //System.out.println(monster);
+              
+               combat(monster);
+            }
+         }   
+         catch (FileNotFoundException e) 
+         { 
+            e.printStackTrace();
+         }
+      }
+   }
+   public static void dungeonTime(int depth,String biome,int level, double encounter) 
    {
       //mapList= new ArrayList<MazeGenerator>();
+      encounterChance=encounter/100;
       maxLevel=depth;
       monsterLevel=level;
       Scanner c= new Scanner(System.in);
       newMap(10,15);
-      wiz= new Wizard(width,height);
+      wiz= new Wizard("player",width,height);
       //t.printWalls();
       player = wiz.getPic();
       frame = new JFrame("Dungeon");
@@ -669,14 +715,9 @@ public class Game2 extends JPanel {
                   break;
             }
             refresh();
-         
-         
-         
-            
          }
          else 
          {
-            
             waiting--;
          }
          wiz.restoreEnergy();
@@ -693,6 +734,6 @@ public class Game2 extends JPanel {
    public static void main(String[] args) 
    {
       independant=true;
-      dungeonTime(3,"plains",0);
+      dungeonTime(3,"plains",0,50);
    }
 }
