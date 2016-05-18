@@ -9,10 +9,10 @@ half - ranger
 leave it empty - mage
 oh! a free bucket for me! :) - rouge
 What is more important to you? 
-strength
-knowledge
-agility
-perception
+strength - Warrior
+knowledge - Mage
+agility - Rouge
+perception - Ranger
 
 
 What do yo think peoples first impressions of you are? 
