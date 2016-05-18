@@ -54,35 +54,6 @@ public class Game2 extends JPanel {
    static Color fogColor = new Color(100,100,100);
    public static JFrame frame; 
    public static double encounterChance;
-   
-   public static class KL extends KeyAdapter{
-      public void keyPressed(KeyEvent e){
-         int keyCode = e.getKeyCode();
-         if(keyCode == e.VK_UP){
-            move("up");
-         }
-         else if(keyCode == e.VK_DOWN){
-            move("down");
-         }
-         else if(keyCode == e.VK_RIGHT){
-            move("right");
-         }
-         else if(keyCode == e.VK_LEFT){
-            move("left");
-         }
-         else if(keyCode == e.VK_ENTER){
-            if(items[wiz.getY()][wiz.getX()]==2)
-               goDown();
-            else if (items[wiz.getY()][wiz.getX()]==1)
-               goUp();
-         }
-         refresh(); 
-      }
-      public void keyReleased(KeyEvent e){
-      
-      }
-   }
-   
    public void paint(Graphics g) 
    {
       Scanner c= new Scanner(System.in);
@@ -665,7 +636,6 @@ public class Game2 extends JPanel {
       }
       int waiting=0;
       input="";
-      frame.addKeyListener(new KL());
       wiz.setXY(stairs[0],stairs[1]);
       while (!input.equals("exit"))
       {
@@ -757,7 +727,7 @@ public class Game2 extends JPanel {
          }
          else 
          {
-            encounter(true);
+         encounter(true);
             waiting--;
          }
          wiz.restoreMana(1);
@@ -774,6 +744,6 @@ public class Game2 extends JPanel {
    public static void main(String[] args) 
    {
       independant=true;
-      dungeonTime(3,"plains",0,00);
+      dungeonTime(3,"plains",0,50);
    }
 }
