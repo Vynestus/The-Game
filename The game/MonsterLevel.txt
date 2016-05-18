@@ -1,9 +1,24 @@
-Name 	File
-Bat 	"bat.png"
-Dog 	"dog.png"
-Fish 	"fish.png"
-Lion 	"lion.png"
-Badger 	"badger.png"
 
+level0 
+4
+Cat
+Bat 	
+Dog 	
+Lion 		
+level1
+1
+Cat
+Level2
+1
+Cat
 
 End
+
+format is 
+level-
+how many in level
+list of creatures in level
+-
+-
+-
+level-

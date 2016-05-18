@@ -1,0 +1,9 @@
+femalerogue	picture\\femalerogue
+femalewarrior	picture\\femalewarrior
+femalearcher	picture\\femalearcher
+femalemage	picture\\femalemage
+
+malerogue	picture\\malerogue
+malewarrior	picture\\malewarrior
+malearcher	picture\\malearcher
+malemage	picture\\malemage

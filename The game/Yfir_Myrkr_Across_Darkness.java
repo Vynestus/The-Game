@@ -15,13 +15,14 @@ import javax.swing.JPanel;
 import java.util.*;
 public class Yfir_Myrkr_Across_Darkness extends JPanel
 {
+   static CharacterCreation cc;
    static int frameHeight=700;
    static int frameWidth=1200;
    static Scanner scan= new Scanner(System.in);
    static ImageIcon fog = new ImageIcon("pictures\\Exeriarsis.png");
    private static Wizard wiz;
    private static Game2 dungeon;
-   public static JFrame frame; 
+   public static JFrame frame,cFrame; 
    public static int dungeonNum=0;
    public void paint(Graphics g)
    {
@@ -33,7 +34,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
    
    
-   frame.setVisible(false);
+      frame.setVisible(false);
       
       
    
@@ -65,12 +66,35 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       }
       frame.setVisible(true);
    }
-public static Wizard getPlayer()
-{
-return wiz;
-}
+   public static Wizard getPlayer()
+   {
+      return wiz;
+   }
+   public static void createPlayer()
+   {
+      cc.characterCreate();
+   }
    public static void main(String[] args) 
    {
+      boolean doneYet=false;
+      createPlayer();
+      while(!doneYet)
+      {
+         try {
+            Thread.sleep(10);
+            //if (doneYet)System.out.println("kill");
+            //System.out.println(CharacterCreation.done());
+            doneYet=cc.done();
+         } 
+         catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+         }
+      }
+      /*System.out.println(cc.getCharName());
+      System.out.println(cc.getCharClass());
+      System.out.println(cc.getSex());*/
+      wiz=new Wizard(cc.getCharName()/*,cc.getCharClass(),1,cc.getSex()*/);
+      //cFrame.setVisible(false);
       frame = new JFrame("Yfir Myrkr");
       frame.add(new Yfir_Myrkr_Across_Darkness());
       int windowy=1024/2-(frameHeight/2);
@@ -88,8 +112,8 @@ return wiz;
          input = scan.next();
          if (input.equals("test"))
          {
-            dungeonNum++;
             dungeon(dungeonNum);
+            dungeonNum++;
          }
       
       }

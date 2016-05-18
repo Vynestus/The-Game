@@ -13,36 +13,77 @@ import javax.swing.JPanel;
 import java.util.*;
 public class Wizard
 {
-static String name;
+   static String name;
    static int x;
    static int y;
    static int width;
    static int height;
-   static int teleportEnergy=0;
-   static int requiredEnergy=7;
    static int maxEnergy=21;
-   static int level=5;
+   static int charLevel;
    static int maxHP;
    static int currentHP;
    static int attack;
+   static int maxMana;
+   static int currentMana;
+   static boolean sex;
+   // false=guy true=girl
+   static String charClass;
    static String[] Inventory;
    static String[] equippedWeapon;
    static ArrayList<String> abilities= new ArrayList<String>();
    //index 0=name, 1=damage, 2=attack, 
    static ImageIcon weezard = new ImageIcon("pictures\\wiz.png");
    //Game2 test=new Game2();
-   public Wizard(String title,int length,int tall)
+   public Wizard(String title/*,int length,int tall*/)
    {
-   name=title;
-      width=length;
-      height=tall;
-      x=(int)(Math.random()*(length-2)+1);
-      y=(int)(Math.random()*(height-2)+1);
+      name=title;
+      width=Game2.width;
+      height=Game2.height;
+      charLevel=1;
+      if (Math.random()<=.5)
+         sex=true;
+      else
+         sex=false;
+     // x=(int)(Math.random()*(length-2)+1);
+      //y=(int)(Math.random()*(height-2)+1);
        //System.out.println(x+" "+y);
-       abilities.add("attack");
-       //abilities.add("defend");
-      
+      abilities.add("Attack");
+      abilities.add("Defend");
+      charClass="fighter";
+      abilities.add("power attack");
    
+   }
+   public Wizard(String title/*, int length, int tall*/,String clas,int level,boolean gender)
+   {
+      name=title;
+      width=Game2.width;
+      height=Game2.height;
+      sex=gender;
+     // x=(int)(Math.random()*(length-2)+1);
+      //y=(int)(Math.random()*(height-2)+1);
+      abilities.add("Attack");
+      abilities.add("Defend");
+      charClass=clas;
+      charLevel=level;
+      switch (charClass)
+      {
+         case "Warrior":
+            abilities.add("Power Attack");
+         // increased damage but decreased chance to hit
+            break;
+         case "Mage":
+            maxMana=charLevel*20;
+            currentMana=charLevel*20;
+            abilities.add("Fireball(5 mana)");
+         // uses mana, can only cast 4 firebolts at level one
+            break;
+         case "Archer":
+            abilities.add("True Shot");
+         // decreased damage but increased chance to hit
+            break;
+         case "Rogue":
+            abilities.add("Sucker Punch");
+      }
    }
    public int getX()
    {
@@ -54,27 +95,27 @@ static String name;
    }
    public int getLevel()
    {
-   return level;
+      return charLevel;
    }
    public int getMaxHP()
    {
-   return maxHP;
+      return maxHP;
    }
    public int getCurrentHP()
    {
-   return currentHP;
+      return currentHP;
    }
-   public int getEnergy()
+   public int getCurrentMana()
    {
-      return teleportEnergy;
+      return currentMana;
    }
    public String getName()
    {
-   return name;
+      return name;
    }
    public ArrayList<String> getAbilities()
    {
-   return abilities;
+      return abilities;
    }
    public ImageIcon getPic()
    {
@@ -92,10 +133,11 @@ static String name;
       x=pos;
       y=pos2;
    }
-   public static void restoreEnergy()
+   public static void restoreMana(int newMana)
    {
-      if (teleportEnergy<maxEnergy)
-         teleportEnergy++;
+      currentMana=currentMana+newMana;
+      if (currentMana>maxMana)
+         currentMana=maxMana;
    }
     // 1 means wall
          // 0 means empty
@@ -114,9 +156,9 @@ static String name;
          case "e":
             if (Game2.east[y][x]==1)
             {
-            worked=false;
+               worked=false;
                System.out.println("There's a wall there");
-               }
+            }
             else
                x++;
             break;
@@ -125,9 +167,9 @@ static String name;
          case "w":
             if (Game2.west[y][x]==1)
             {
-           worked=false;
+               worked=false;
                System.out.println("There's a wall there");
-               }
+            }
             else
                x--;
             break;
@@ -136,9 +178,9 @@ static String name;
          case "n":
             if (Game2.north[y][x]==1)
             {
-            worked=false;
+               worked=false;
                System.out.println("There's a wall there");
-               }
+            }
             else
                y--;
             break;
@@ -147,9 +189,9 @@ static String name;
          case "s":
             if (Game2.south[y][x]==1)
             {
-            worked=false;
+               worked=false;
                System.out.println("There's a wall there");
-               }
+            }
             else
                y++;;
             break;
@@ -162,9 +204,9 @@ static String name;
    }
    public static void teleport(int xPos, int yPos)
    {
-      if (teleportEnergy>=requiredEnergy)
+      if (currentMana>=7)
       {
-         teleportEnergy-=requiredEnergy;
+         currentMana-=7;
          int chanceAlsoThis=(int)(Math.random()*5)+1;
         
          int chance=(int)(Math.random()*100)+1;
@@ -221,6 +263,6 @@ static String name;
       
       }
       else 
-         System.out.println("You don't have enough magic energy, you can teleport again in "+ (requiredEnergy-teleportEnergy) + " round(s)");
+         System.out.println("You only have "+currentMana+" mana. To teleport you require 7 mana.");
    }
 }

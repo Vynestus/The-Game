@@ -293,7 +293,7 @@ public class Game2 extends JPanel {
             movingl=-1*steps;
          else if (mover.equals("left")||mover.equals("west")||mover.equals("w"))
             movingl=steps;
-         encounter();
+         encounter(false);
             
             
       //ActionListener action = new ActionListener();
@@ -553,14 +553,19 @@ public class Game2 extends JPanel {
          }
       }
    }
-   public static void encounter()
+   public static void encounter(Boolean safe)
    {
       double encounter=Math.random();
       //System.out.println(encounter+" "+encounterChance);
       String scanner="";
       String target="level"+monsterLevel;
       //System.out.println(target);
-      if (encounter<encounterChance)
+      double tempEncounterChance;
+      if (safe)
+         tempEncounterChance=encounterChance/4;
+      else
+         tempEncounterChance=encounterChance;
+      if (encounter<tempEncounterChance)
       {
          File list = new File("MonsterLevel.txt");
          try {
@@ -583,9 +588,9 @@ public class Game2 extends JPanel {
                //System.out.println(encounter);
                for (int xyz=1;xyz<encounter;xyz++)
                {
-               sc.next();
+                  sc.next();
                }
-              String monster=sc.next();
+               String monster=sc.next();
               //System.out.println(monster);
               
                combat(monster);
@@ -596,6 +601,7 @@ public class Game2 extends JPanel {
             e.printStackTrace();
          }
       }
+      
    }
    public static void dungeonTime(int depth,String biome,int level, double encounter) 
    {
@@ -605,7 +611,10 @@ public class Game2 extends JPanel {
       monsterLevel=level;
       Scanner c= new Scanner(System.in);
       newMap(10,15);
-      wiz= new Wizard("player",width,height);
+      if (independant)
+         wiz= new Wizard("player"/*,width,height*/);
+      else
+         wiz= Yfir_Myrkr_Across_Darkness.getPlayer();
       //t.printWalls();
       player = wiz.getPic();
       frame = new JFrame("Dungeon");
@@ -718,9 +727,10 @@ public class Game2 extends JPanel {
          }
          else 
          {
+         encounter(true);
             waiting--;
          }
-         wiz.restoreEnergy();
+         wiz.restoreMana(1);
          windowx=width*50-50*3/4;
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
@@ -734,6 +744,6 @@ public class Game2 extends JPanel {
    public static void main(String[] args) 
    {
       independant=true;
-      dungeonTime(3,"plains",0,50);
+      dungeonTime(3,"plains",0,0);
    }
 }

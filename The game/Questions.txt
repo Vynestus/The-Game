@@ -16,7 +16,7 @@ Archer
 leave it empty 
 Mage
 oh! a free bucket for me! :) 
-Rouge
+Rogue
 
 What is more important to you? 
 strength 
@@ -29,4 +29,13 @@ perception
 Archer
 
 What do yo think peoples first impressions of you are? 
+test1
+Mage
+test3
+Warrior
+test5
+Archer
+test7
+Rogue
+
 End

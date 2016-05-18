@@ -34,7 +34,6 @@ public class Combat extends JPanel {
       monster=new ImageIcon(stat[6]);
       //System.out.println("||"+stat[6]+"||");
       
-     
       JPanel panel = new JPanel();
       panel.setLayout(new FlowLayout());
       add(panel,BorderLayout.SOUTH);
@@ -53,7 +52,6 @@ public class Combat extends JPanel {
       button1.addActionListener(new stats());
       panel.add(button1);
       
-      
       JButton button2 = new JButton("Quit Completely");
       button2.addActionListener(new quitcompletely());
       panel.add(button2,BorderLayout.SOUTH);
@@ -64,7 +62,8 @@ public class Combat extends JPanel {
             /*
       label2 = new JLabel("Iterations: 0");
       add(label2);
-   */JLabel label1 = new JLabel(Game2.wiz.getName());
+   */
+      JLabel label1 = new JLabel(Game2.wiz.getName());
       panel.add(label1);
       String[] temp= new String[Game2.wiz.getAbilities().size()];
       Game2.wiz.getAbilities().toArray(temp);
@@ -74,7 +73,7 @@ public class Combat extends JPanel {
          abilities.addItem(s);
       }*/
       panel.add(abilities);
-      panel.add(new JLabel("test"));
+      panel.add(new JLabel(stat[0]));
    }
    private class stats implements ActionListener
    {
@@ -91,18 +90,14 @@ public class Combat extends JPanel {
    {
       public void actionPerformed(ActionEvent e)
       {
-         
          System.exit(1);
-         
       }
    }
    private class quit implements ActionListener
    {
       public void actionPerformed(ActionEvent e)
       {
-         
          done=true;
-         
       }
    }   
    public static boolean deadYet()
