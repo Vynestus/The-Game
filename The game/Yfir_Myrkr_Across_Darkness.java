@@ -22,6 +22,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    private static Wizard wiz;
    private static Game2 dungeon;
    public static JFrame frame; 
+   public static int dungeonNum=0;
    public void paint(Graphics g)
    {
    
@@ -30,12 +31,18 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    }
    public static void dungeon(int num)
    {
+   
+   
+   frame.setVisible(false);
+      
+      
+   
       switch(num)
       {
          case 0:
-            dungeon.dungeonTime(3,"plains",0);
+            dungeon.dungeonTime(3,"plains",0,10);
          case 1:
-            dungeon.dungeonTime(5,"plains",1);
+            dungeon.dungeonTime(5,"plains",1,20);
             break;
          case 2:
          
@@ -56,8 +63,12 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
          
             break;
       }
+      frame.setVisible(true);
    }
-
+public static Wizard getPlayer()
+{
+return wiz;
+}
    public static void main(String[] args) 
    {
       frame = new JFrame("Yfir Myrkr");
@@ -77,7 +88,8 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
          input = scan.next();
          if (input.equals("test"))
          {
-            dungeon(1);
+            dungeonNum++;
+            dungeon(dungeonNum);
          }
       
       }

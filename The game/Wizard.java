@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import java.util.*;
 public class Wizard
 {
+static String name;
    static int x;
    static int y;
    static int width;
@@ -20,21 +21,26 @@ public class Wizard
    static int teleportEnergy=0;
    static int requiredEnergy=7;
    static int maxEnergy=21;
-   static int level;
-   static int hp;
+   static int level=5;
+   static int maxHP;
+   static int currentHP;
    static int attack;
    static String[] Inventory;
    static String[] equippedWeapon;
+   static ArrayList<String> abilities= new ArrayList<String>();
    //index 0=name, 1=damage, 2=attack, 
    static ImageIcon weezard = new ImageIcon("pictures\\wiz.png");
    //Game2 test=new Game2();
-   public Wizard(int length,int tall)
+   public Wizard(String title,int length,int tall)
    {
+   name=title;
       width=length;
       height=tall;
       x=(int)(Math.random()*(length-2)+1);
       y=(int)(Math.random()*(height-2)+1);
        //System.out.println(x+" "+y);
+       abilities.add("attack");
+       //abilities.add("defend");
       
    
    }
@@ -46,9 +52,29 @@ public class Wizard
    {
       return y;
    }
+   public int getLevel()
+   {
+   return level;
+   }
+   public int getMaxHP()
+   {
+   return maxHP;
+   }
+   public int getCurrentHP()
+   {
+   return currentHP;
+   }
    public int getEnergy()
    {
       return teleportEnergy;
+   }
+   public String getName()
+   {
+   return name;
+   }
+   public ArrayList<String> getAbilities()
+   {
+   return abilities;
    }
    public ImageIcon getPic()
    {

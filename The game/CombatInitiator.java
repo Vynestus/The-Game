@@ -23,17 +23,16 @@ public class CombatInitiator
       getStats(creature);
       if (!dead)
       {
-      cFrame = new JFrame("COMBAT HAS STARTED!!!");
-      cFrame.setSize(1000, 500);
-      cFrame.setLocation(1280/2-500, 1024/2-250);
-      cFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-      cFrame.setContentPane(new Combat());
-      cFrame.setVisible(true);
-      
-      while (!dead)
-      {
-         dead=Combat.deadYet();
-      }
+         cFrame = new JFrame("COMBAT HAS STARTED!!!");
+         cFrame.setSize(1000, 500);
+         cFrame.setLocation(1280/2-500, 1024/2-250);
+         cFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+         cFrame.setContentPane(new Combat());
+         cFrame.setVisible(true);
+         while (!dead)
+         {
+            dead=Combat.deadYet();
+         }
       }
       return true;
    }
@@ -61,12 +60,12 @@ public class CombatInitiator
             for (int x=1;x<7;x++)
             {
                stats[x]=sc.next();
-            }
+            }/*
             for (int x=0;x<7;x++)
             {
                System.out.print(stats[x]+"\t");
             }
-            System.out.println();
+            System.out.println();*/
          }
       }
       catch (FileNotFoundException e) 
@@ -78,7 +77,7 @@ public class CombatInitiator
    }
    public static void endCombat()
    {
-   if (!dead)
-         cFrame.dispose();
+   
+      cFrame.dispose();
    }
 }
