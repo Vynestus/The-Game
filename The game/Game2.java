@@ -58,19 +58,24 @@ public class Game2 extends JPanel {
    public static class KL extends KeyAdapter{
       public void keyPressed(KeyEvent e){
          int keyCode = e.getKeyCode();
-         if(keyCode == e.VK_UP){
+         if(keyCode == e.VK_UP)
+         {
             move("up");
          }
-         else if(keyCode == e.VK_DOWN){
+         else if(keyCode == e.VK_DOWN)
+         {
             move("down");
          }
-         else if(keyCode == e.VK_RIGHT){
+         else if(keyCode == e.VK_RIGHT)
+         {
             move("right");
          }
-         else if(keyCode == e.VK_LEFT){
+         else if(keyCode == e.VK_LEFT)
+         {
             move("left");
          }
-         /*else if(keyCode == e.VK_R){
+         else if(keyCode == e.VK_R)
+         {
          
          }
          else if(keyCode == e.VK_ENTER){
@@ -78,7 +83,12 @@ public class Game2 extends JPanel {
                goDown();
             else if (items[wiz.getY()][wiz.getX()]==1)
                goUp();
-         }*/
+         }
+         wiz.restoreMana(1);
+         int windowx=width*50-50*3/4;
+         int windowy=height*50-50/4;
+         frame.setSize(windowx,windowy);
+         frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
          refresh(); 
       }
       public void keyReleased(KeyEvent e){
@@ -777,6 +787,6 @@ public class Game2 extends JPanel {
    public static void main(String[] args) 
    {
       independant=true;
-      dungeonTime(3,"plains",0,00);
+      dungeonTime(3,"plains",0,0);
    }
 }
