@@ -92,6 +92,7 @@ public class Game2 extends JPanel {
             }
             // east wall
             //g2d.setColor(Color.BLACK);
+            try {
             if (east[y][x]==1&&light[y][x])
                g2d.fillRect(x*50+25,y*50-25,1,50);
                //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
@@ -112,7 +113,11 @@ public class Game2 extends JPanel {
             if (west[y][x]==1&&light[y][x])
                g2d.fillRect(x*50-24,y*50-25,1,50);
                //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
-            
+            }
+            catch (ArrayIndexOutOfBoundsException e) 
+         { 
+            e.printStackTrace();
+         }
             
          }
       }
@@ -121,7 +126,7 @@ public class Game2 extends JPanel {
          g2d.drawImage(stairsDown.getImage(),stairs[2]*50-23,stairs[3]*50-23,48,48,null);
       if (light[stairs[1]][stairs[0]])
          g2d.drawImage(stairsUp.getImage(),stairs[0]*50-23,stairs[1]*50-23,48,48,null);
-      //if (movingr>0||movingu>0)
+      //if (movingr>0||movingu>0)   
       int wizplacex=wiz.getX()*50-25+movingl;
       //System.out.println(wizplacex);
       int wizplacey=wiz.getY()*50-23+movingu;
@@ -202,7 +207,7 @@ public class Game2 extends JPanel {
       width=mapList.get(mapList.size()-1).getWidth();
       
       changeLevel();
-      /*if (mapList.get(currentMap).getName().equals("map 0"))
+         /*if (mapList.get(currentMap).getName().equals("map 0"))
       {
          for(int x=0;x<items[0].length;x++)
          {
@@ -219,13 +224,13 @@ public class Game2 extends JPanel {
    {
       if (currentMap==0)
       {
-         System.out.println("Do you really want to leave the dungeon? y/n");
-         String input = c.next();
+         System.out.println("You can't leave now! You have swords to collect and a world to save!");
+         /*String input = c.next();
          if (input.equals("y"))
          {
             System.out.println("Goodbye, we hope you had fun, come again!!");
             System.exit(0);
-         }
+         }*/
       }
       else
       {
@@ -236,22 +241,25 @@ public class Game2 extends JPanel {
    }
    public static void goDown()
    {
-      currentMap++;
-      if (currentMap==mapList.size())
-      {
-         int tempHeight=(int)(Math.random()*(maxHeight-minHeight)+minHeight+1);
-         int tempWidth=(int)(Math.random()*(maxWidth-minWidth)+minWidth+1);
-         newMap(tempHeight,tempWidth);
-      }
-      else 
-         changeLevel();
-      wiz.setXY(stairs[0],stairs[1]);
-      draw();
-      draw();
       if (currentMap==maxLevel)
       {
          System.out.println("In the darkness of this stairwell, you see a bright light. There lays, a sword on a pedastal. This is it.");
-         frame.dispose();
+         input="exit";
+      }
+      else
+      {
+         currentMap++;
+         if (currentMap==mapList.size())
+         {
+            int tempHeight=(int)(Math.random()*(maxHeight-minHeight)+minHeight+1);
+            int tempWidth=(int)(Math.random()*(maxWidth-minWidth)+minWidth+1);
+            newMap(tempHeight,tempWidth);
+         }
+         else 
+            changeLevel();
+         wiz.setXY(stairs[0],stairs[1]);
+         draw();
+         draw();
       }
    }
   
@@ -629,11 +637,17 @@ public class Game2 extends JPanel {
          {
             input="cheatCommand";
          }
-         else if(keyCode == e.VK_ENTER){
-            if(items[wiz.getY()][wiz.getX()]==2)
+         else if(keyCode == e.VK_Z)
+         {
+         input="draw";
+         }
+         else if(keyCode == e.VK_ENTER)
+         {
+            input="stairs";
+            /*if(items[wiz.getY()][wiz.getX()]==2)
                goDown();
             else if (items[wiz.getY()][wiz.getX()]==1)
-               goUp();
+               goUp();*/
          }
          wiz.restoreMana(1);
          int windowx=width*50-50*3/4;
@@ -646,11 +660,11 @@ public class Game2 extends JPanel {
       
       }
    }
-   public static void dungeonTime(int depth,String biome,int level, double encounter) 
+   public static boolean dungeonTime(int depth,String biome,int level, double encounter) 
    {
       //mapList= new ArrayList<MazeGenerator>();
       encounterChance=encounter/100;
-      maxLevel=depth;
+      maxLevel=depth-1;
       monsterLevel=level;
       Scanner c= new Scanner(System.in);
       newMap(10,15);
@@ -682,7 +696,7 @@ public class Game2 extends JPanel {
       frame.addKeyListener(new KL());
       wiz.setXY(stairs[0],stairs[1]);
       while (!input.equals("exit"))
-      {
+      {input="";
          if (combat)
             System.out.println("test");
          if (combat)
@@ -701,7 +715,7 @@ public class Game2 extends JPanel {
             //wiz.restoreEnergy();
             //System.out.println("hello there");
             if (input.equalsIgnoreCase("cheatcommand"))
-            input=c.next();
+               input=c.next();
             switch(input)
             {
                case "move":
@@ -783,15 +797,16 @@ public class Game2 extends JPanel {
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
          frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
-         input="";
+         //input="";
          //frame.repaint();
       }
-      System.out.println("test2");
-      System.exit(0);
+      frame.dispose();
+      return true;
    }
    public static void main(String[] args) 
    {
       independant=true;
-      dungeonTime(3,"plains",0,0);
+      if (dungeonTime(1,"plains",0,0))
+         System.exit(1);
    }
 }

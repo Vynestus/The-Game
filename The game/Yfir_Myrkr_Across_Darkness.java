@@ -41,8 +41,10 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       switch(num)
       {
          case 0:
-            dungeon.dungeonTime(3,"plains",0,10);
+            System.out.println("testing");
+            dungeon.dungeonTime(1,"plains",0,0);
          case 1:
+         System.out.println("testin two");
             dungeon.dungeonTime(5,"plains",1,20);
             break;
          case 2:
@@ -77,7 +79,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    public static void main(String[] args) 
    {
       boolean doneYet=false;
-      createPlayer();
+      /*createPlayer();
       while(!doneYet)
       {
          try {
@@ -90,10 +92,8 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
             Thread.currentThread().interrupt();
          }
       }
-      /*System.out.println(cc.getCharName());
-      System.out.println(cc.getCharClass());
-      System.out.println(cc.getSex());*/
-      wiz=new Wizard(cc.getCharName()/*,cc.getCharClass(),1,cc.getSex()*/);
+      wiz=new Wizard(cc.getCharName(),cc.getCharClass(),1,cc.getSex());*/
+      wiz = new Wizard("test","Warrior",1,true);
       //cFrame.setVisible(false);
       frame = new JFrame("Yfir Myrkr");
       frame.add(new Yfir_Myrkr_Across_Darkness());
@@ -110,11 +110,13 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       while (!input.equals("exit"))
       {
          input = scan.next();
+         System.out.println(input);
          if (input.equals("test"))
          {
             dungeon(dungeonNum);
             dungeonNum++;
          }
+         input="";
       
       }
    }
