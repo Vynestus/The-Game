@@ -105,10 +105,10 @@ public class MazeGenerator
       items=new int[height][width];
       while (Math.abs(sux-sdx)<3||Math.abs(suy-sdy)<3)
       {
-      sux=(int)(Math.random()*(width-2)+1);
-      suy=(int)(Math.random()*(height-2)+1);
-      sdy=(int)(Math.random()*(height-2)+1);
-      sdx=(int)(Math.random()*(width-2)+1);
+         sux=(int)(Math.random()*(width-2)+1);
+         suy=(int)(Math.random()*(height-2)+1);
+         sdy=(int)(Math.random()*(height-2)+1);
+         sdx=(int)(Math.random()*(width-2)+1);
       }
       
       items[suy][sux]=1;

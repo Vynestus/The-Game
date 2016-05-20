@@ -26,7 +26,7 @@ public class CombatInitiator
          cFrame = new JFrame("COMBAT HAS STARTED!!!");
          cFrame.setSize(1000, 500);
          cFrame.setLocation(1280/2-500, 1024/2-250);
-         cFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+         cFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          cFrame.setContentPane(new Combat());
          cFrame.setVisible(true);
          while (!dead)

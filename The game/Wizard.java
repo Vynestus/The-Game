@@ -258,9 +258,6 @@ public class Wizard
                //System.out.println("test2");
             }
          }
-         
-      
-      
       }
       else 
          System.out.println("You only have "+currentMana+" mana. To teleport you require 7 mana.");

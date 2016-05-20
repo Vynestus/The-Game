@@ -17,6 +17,7 @@ import java.util.*;
 public class Combat extends JPanel {
    private JLabel label1, label2;
    private JTextField box;
+   static CombatInitiator startCombat;
    static ImageIcon monster;
    static String[] stat;
    public static boolean done;
@@ -74,6 +75,7 @@ public class Combat extends JPanel {
       }*/
       panel.add(abilities);
       panel.add(new JLabel(stat[0]));
+      
    }
    private class stats implements ActionListener
    {
@@ -104,5 +106,9 @@ public class Combat extends JPanel {
    {
       return done;
    }
-        
+   public static void main(String[] args)
+   {
+      if (startCombat.startCombat("lion"));
+      startCombat.endCombat();
+   }   
 }
