@@ -43,6 +43,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
          case 0:
             System.out.println("testing");
             dungeon.dungeonTime(1,"plains",0,0);
+            break;
          case 1:
          System.out.println("testin two");
             dungeon.dungeonTime(5,"plains",1,20);
