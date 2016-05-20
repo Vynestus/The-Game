@@ -32,7 +32,7 @@ public class Wizard
    static String[] equippedWeapon;
    static ArrayList<String> abilities= new ArrayList<String>();
    //index 0=name, 1=damage, 2=attack, 
-   static ImageIcon weezard = new ImageIcon("pictures\\wiz.png");
+   static ImageIcon weezard;
    //Game2 test=new Game2();
    public Wizard(String title/*,int length,int tall*/)
    {
@@ -40,17 +40,15 @@ public class Wizard
       width=Game2.width;
       height=Game2.height;
       charLevel=1;
-      if (Math.random()<=.5)
-         sex=true;
-      else
-         sex=false;
+      sex=false;
      // x=(int)(Math.random()*(length-2)+1);
       //y=(int)(Math.random()*(height-2)+1);
        //System.out.println(x+" "+y);
       abilities.add("Attack");
       abilities.add("Defend");
-      charClass="fighter";
+      charClass="Warrior";
       abilities.add("power attack");
+      setImage(0,0);
    
    }
    public Wizard(String title/*, int length, int tall*/,String clas,int level,boolean gender)
@@ -65,6 +63,7 @@ public class Wizard
       abilities.add("Defend");
       charClass=clas;
       charLevel=level;
+      setImage(0,0);
       switch (charClass)
       {
          case "Warrior":
@@ -84,6 +83,18 @@ public class Wizard
          case "Rogue":
             abilities.add("Sucker Punch");
       }
+   }
+   public static void setImage(int direction,int pos)
+   {
+      if (pos==2)pos=0;
+      String temp="CharacterImages\\\\"+direction;
+      if (sex)
+         temp=temp+"Female";
+      else 
+         temp=temp+"Male";
+      temp=temp+charClass+pos+".png";
+      //System.out.println(temp);
+      weezard = new ImageIcon(temp);
    }
    public int getX()
    {

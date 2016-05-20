@@ -30,22 +30,25 @@ public class Game2 extends JPanel {
    public static int currentMap=0; 
    static int[] stairs;
    static int width;
-   public static boolean draw=false;
+   public static int direction=0;
+   private static boolean draw=false;
    static int height;
    static int maxHeight=21;
    static int maxWidth=22;
    static int minHeight=10;
    static int minWidth=11;
    static int maxLevel;
+   public static int helpMenu=250;
    static int monsterLevel;
    static String input;
+   public static int windowx;
+   public static int windowy;
    public static boolean independant=false;
    public static boolean combat=false;
    static int counter=0;
    static int movingl=0;
    static int movingu=0;
    public static boolean buttons=false;
-   static ImageIcon player;
    static ImageIcon stairsUp = new ImageIcon("pictures\\stairsup.png");
    static ImageIcon stairsDown = new ImageIcon("pictures\\stairsdown.png");
    static ImageIcon wall = new ImageIcon("pictures\\wall3.jpg");
@@ -70,10 +73,18 @@ public class Game2 extends JPanel {
          }
          
       }	
+      g2d.setFont(new Font("Ariel",1,15));
       g2d.fillRect(0,0,26,height*50);
       g2d.fillRect(0,0,width*50,26);
-      g2d.fillRect(width*50-74,0,25,height*50);
+      g2d.fillRect(width*50-74,0,275,height*50);
       g2d.fillRect(0,height*50-74,width*50,25);
+      if (helpMenu>0)
+      {
+      g2d.setColor(Color.WHITE);
+      g2d.drawString("Use the arrow keys to move",width*50-64,20);
+         g2d.drawString("Click 'H' to turn off the this menu",width*50-64,40);
+      }
+      g2d.setColor(wallColor);	
       for (int y=1;y<height-1;y++)
       {
          for (int x=1;x<width-1;x++)
@@ -93,31 +104,31 @@ public class Game2 extends JPanel {
             // east wall
             //g2d.setColor(Color.BLACK);
             try {
-            if (east[y][x]==1&&light[y][x])
-               g2d.fillRect(x*50+25,y*50-25,1,50);
+               if (east[y][x]==1&&light[y][x])
+                  g2d.fillRect(x*50+25,y*50-25,1,50);
                //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
             // North
             
             //g2d.setColor(Color.BLUE);
-            if (north[y][x]==1&&light[y][x])
-               g2d.fillRect(x*50-25,y*50-25,50,2);
+               if (north[y][x]==1&&light[y][x])
+                  g2d.fillRect(x*50-25,y*50-25,50,2);
                //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
             // South
             
             //g2d.setColor(Color.GREEN);
-            if (south[y][x]==1&&light[y][x])
-               g2d.fillRect(x*50-25,y*50+24,50,2);
+               if (south[y][x]==1&&light[y][x])
+                  g2d.fillRect(x*50-25,y*50+24,50,2);
                //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
             // West
             //g2d.setColor(new Color(127,255,0));
-            if (west[y][x]==1&&light[y][x])
-               g2d.fillRect(x*50-24,y*50-25,1,50);
+               if (west[y][x]==1&&light[y][x])
+                  g2d.fillRect(x*50-24,y*50-25,1,50);
                //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
             }
             catch (ArrayIndexOutOfBoundsException e) 
-         { 
-            e.printStackTrace();
-         }
+            { 
+               e.printStackTrace();
+            }
             
          }
       }
@@ -130,7 +141,7 @@ public class Game2 extends JPanel {
       int wizplacex=wiz.getX()*50-25+movingl;
       //System.out.println(wizplacex);
       int wizplacey=wiz.getY()*50-23+movingu;
-      g2d.drawImage(player.getImage(),wizplacex,wizplacey,48,48,null);
+      g2d.drawImage(wiz.getPic().getImage(),wizplacex,wizplacey,48,48,null);
       if (buttons)
       {
          JPanel panel = new JPanel();
@@ -295,41 +306,58 @@ public class Game2 extends JPanel {
    }
    public static void move(String mover)
    {
-      int steps=0;
+      int steps=50;
+      int sub=5;
+      double secondsToMove=.5;
+      
       if (wiz.go(mover))
       {
       
          if (mover.equals("south")||mover.equals("down")||mover.equals("s"))
+         {
             movingu=-1*steps;
+            direction=0;
+         }
          else if (mover.equals("up")||mover.equals("north")||mover.equals("n"))
+         {
+            direction=1;
             movingu=steps;
+         }
          else if (mover.equals("east")||mover.equals("right")||mover.equals("e"))
+         {
             movingl=-1*steps;
+         }
          else if (mover.equals("left")||mover.equals("west")||mover.equals("w"))
+         {
             movingl=steps;
+         }
          encounter(false);
             
-           /* System.out.println(movingu+" "+movingl);
-         while (movingl+movingu!=0)
+            //System.out.println(movingu+" "+movingl);
+        // while (movingl+movingu!=0)
+         steps=steps/sub;
+         while (steps!=0)
          {
-            frame.repaint();
+            //frame.repaint();
             try {
-               Thread.sleep(10);
-               }
+               Thread.sleep((int)((secondsToMove*1000)/(50/sub)));
+            }
             catch(InterruptedException ex) {
                Thread.currentThread().interrupt();
             }
+            wiz.setImage(direction,steps%4);
             if (movingl>0)
-               movingl--;
+               movingl-=sub;
             if (movingl<0)
-               movingl++;
+               movingl+=sub;
             if (movingu>0)
-               movingu--;
+               movingu-=sub;
             if (movingu<0)
-               movingu++;
-              refresh();    
+               movingu+=sub;
+            refresh();   
+            steps--; 
          }
-      */
+         wiz.setImage(direction,0);
       }
    }
    public static void refresh()
@@ -639,7 +667,14 @@ public class Game2 extends JPanel {
          }
          else if(keyCode == e.VK_Z)
          {
-         input="draw";
+            input="draw";
+         }
+         else if (keyCode==e.VK_H)
+         {
+         if(helpMenu==250)
+         helpMenu=0;
+         else
+         helpMenu=250;
          }
          else if(keyCode == e.VK_ENTER)
          {
@@ -650,8 +685,8 @@ public class Game2 extends JPanel {
                goUp();*/
          }
          wiz.restoreMana(1);
-         int windowx=width*50-50*3/4;
-         int windowy=height*50-50/4;
+         windowx=width*50-50*3/4+250;
+         windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
          frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
          refresh(); 
@@ -673,11 +708,10 @@ public class Game2 extends JPanel {
       else
          wiz= Yfir_Myrkr_Across_Darkness.getPlayer();
       //t.printWalls();
-      player = wiz.getPic();
       frame = new JFrame("Dungeon");
       frame.add(new Game2());
-      int windowx=width*50-50*3/4;
-      int windowy=height*50-50/4;
+      windowx=width*50-50*3/4;
+      windowy=height*50-50/4;
       frame.setSize(windowx,windowy);
       frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
       frame.setVisible(true);
@@ -793,7 +827,7 @@ public class Game2 extends JPanel {
             waiting--;
          }
          wiz.restoreMana(1);
-         windowx=width*50-50*3/4;
+         windowx=width*50-50*3/4+helpMenu;
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
          frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
@@ -806,7 +840,7 @@ public class Game2 extends JPanel {
    public static void main(String[] args) 
    {
       independant=true;
-      if (dungeonTime(1,"plains",0,0))
+      if (dungeonTime(3,"plains",0,0))
          System.exit(1);
    }
 }
