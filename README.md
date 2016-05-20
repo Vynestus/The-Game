@@ -11,3 +11,9 @@ I am the light in the darkness.
 I am the truth. 
 Ally to good! 
 Nightmare to you!" - Goku
+
+"In fearful day, in raging night,
+With strong hearts full, our souls ignite.
+When all seems lost in the War of Light,
+Look to the stars, for hope burns bright!"
+-You are now part of the Blue Lantern Corps.
