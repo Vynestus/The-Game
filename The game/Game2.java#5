@@ -1,0 +1,248 @@
+import java.awt.Color;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.WindowEvent;
+import javax.swing.*;
+import java.util.Timer;
+import java.awt.Graphics;
+//import javax.swing.Timer;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+import javax.swing.JFrame;
+import java.awt.image.BufferedImage;
+import javax.swing.JPanel;
+import java.io.*;
+import java.util.*;
+
+public class Game2 extends JPanel {
+   //private static MazeGenerator map= null;
+   public static Wizard wiz;
+   static CombatInitiator startCombat; 
+   static Scanner c= new Scanner(System.in);
+   public static int [][] north;
+   public static int [][] south;
+   public static int [][] west;
+   public static int [][] east;
+   public static int [][] items;
+   public static boolean [][] light;
+   public static ArrayList<MazeGenerator> mapList = new ArrayList<MazeGenerator>();
+   public static int currentMap=0; 
+   static int[] stairs;
+   static int width;
+   public static boolean draw=false;
+   static int height;
+   static int maxHeight=21;
+   static int maxWidth=22;
+   static int minHeight=10;
+   static int minWidth=11;
+   static int maxLevel;
+   static int monsterLevel;
+   static String input;
+   public static boolean independant=false;
+   public static boolean combat=false;
+   static int counter=0;
+   static int movingl=0;
+   static int movingu=0;
+   public static boolean buttons=false;
+   static ImageIcon player;
+   static ImageIcon stairsUp = new ImageIcon("pictures\\stairsup.png");
+   static ImageIcon stairsDown = new ImageIcon("pictures\\stairsdown.png");
+   static ImageIcon wall = new ImageIcon("pictures\\wall3.jpg");
+   static ImageIcon fog = new ImageIcon("pictures\\Fog clone.png");
+   static Color wallColor = new Color(0,0,0);
+   static Color fogColor = new Color(100,100,100);
+   public static JFrame frame; 
+   public static double encounterChance;
+   public void paint(Graphics g) 
+   {
+      Scanner c= new Scanner(System.in);
+     //print background wall
+      Graphics2D g2d = (Graphics2D) g;
+      //g2d.setColor(new Color(127,255,0));
+      g2d.setColor(wallColor);	
+      for (int y=0;y<(height)/2;y++)
+      {
+         for (int x=0;x<(width)/2;x++)
+         {
+         
+            g2d.drawImage(wall.getImage(),x*100,y*100,100,100,null);
+         }
+         
+      }	
+      g2d.fillRect(0,0,26,height*50);
+      g2d.fillRect(0,0,width*50,26);
+      g2d.fillRect(width*50-74,0,25,height*50);
+      g2d.fillRect(0,height*50-74,width*50,25);
+      for (int y=1;y<height-1;y++)
+      {
+         for (int x=1;x<width-1;x++)
+         {
+            if (!light[y][x])
+            {
+               g2d.setColor(fogColor);
+            }
+            
+            else
+               g2d.setColor(wallColor);
+            if (!light[y][x])
+            {
+               //g2d.fillRect(x*50-24,y*50-24,50,50);
+               g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
+            }
+            // east wall
+            //g2d.setColor(Color.BLACK);
+            if (east[y][x]==1&&light[y][x])
+               g2d.fillRect(x*50+25,y*50-25,1,50);
+               //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
+            // North
+            
+            //g2d.setColor(Color.BLUE);
+            if (north[y][x]==1&&light[y][x])
+               g2d.fillRect(x*50-25,y*50-25,50,2);
+               //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
+            // South
+            
+            //g2d.setColor(Color.GREEN);
+            if (south[y][x]==1&&light[y][x])
+               g2d.fillRect(x*50-25,y*50+24,50,2);
+               //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
+            // West
+            //g2d.setColor(new Color(127,255,0));
+            if (west[y][x]==1&&light[y][x])
+               g2d.fillRect(x*50-24,y*50-25,1,50);
+               //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
+            
+            
+         }
+      }
+      //sux,suy,sdx,sdy
+      if (light[stairs[3]][stairs[2]])
+         g2d.drawImage(stairsDown.getImage(),stairs[2]*50-23,stairs[3]*50-23,48,48,null);
+      if (light[stairs[1]][stairs[0]])
+         g2d.drawImage(stairsUp.getImage(),stairs[0]*50-23,stairs[1]*50-23,48,48,null);
+      //if (movingr>0||movingu>0)
+      int wizplacex=wiz.getX()*50-25+movingl;
+      //System.out.println(wizplacex);
+      int wizplacey=wiz.getY()*50-23+movingu;
+      g2d.drawImage(player.getImage(),wizplacex,wizplacey,48,48,null);
+      if (buttons)
+      {
+         JPanel panel = new JPanel();
+         panel.setLayout(new FlowLayout());
+         add(panel,BorderLayout.EAST);
+         JButton button1 = new JButton("test");
+         button1.addActionListener(new stats());
+         panel.add(button1);
+         buttons=false;
+      }
+   
+   }
+   private class stats implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         // 0 is name, 1-health, 2-damage,3-speed,4-defense,5-exp,6-image)
+         for (int x=0;x<7;x++)
+         {
+            System.out.println("test");
+         }
+      }
+   }
+    // 1 means wall
+         // 0 means empty
+   public int[][] getNorth()
+   {
+      return north;
+   }
+   public int[][] getEast()
+   {
+      return east;
+   }
+   public int[][] getSouth()
+   {
+      return south;
+   }
+   public int[][] getWest()
+   {
+      return west;
+   }
+   public static void changeLevel()
+   {
+      north=mapList.get(currentMap).getNorth();
+      south=mapList.get(currentMap).getSouth();
+      west=mapList.get(currentMap).getWest();
+      east=mapList.get(currentMap).getEast();
+      height=mapList.get(currentMap).getHeight();
+      width=mapList.get(currentMap).getWidth();
+      stairs=mapList.get(currentMap).getStairs();
+      items=mapList.get(currentMap).getItems();
+      light = new boolean[north.length][north[1].length];
+      //System.out.println(stairs[0]+" "+stairs[1]+" "+stairs[2]+" "+ stairs[3]);
+      //System.out.println(currentMap+" is "+width+" "+height + " compared "+mapList.get(currentMap).getWidth()+" "+mapList.get(currentMap).getHeight());
+     // mapList.get(currentMap).printWalls();
+      
+   }
+   public static void newMap(int h, int w)
+   {
+      height=h;
+      width=w;
+      light = new boolean[h][w];
+    //MazeGenerator map= new MazeGenerator(width,height);
+      //map.setName("map " + mapList.size());
+      //mapList.add(new MazeGenerator());
+      mapList.add(new MazeGenerator(width,height,"map "+mapList.size()));
+      //mapList.get(currentMap).startingItems();
+      //mapList.get(mapList.size()-1)=new MazeGenerator(width,height,"map "+mapList.size());
+      //map=null;
+      
+      //System.out.println(
+      //counter++;
+      height=mapList.get(mapList.size()-1).getHeight();
+      width=mapList.get(mapList.size()-1).getWidth();
+      
+      changeLevel();
+      /*if (mapList.get(currentMap).getName().equals("map 0"))
+      {
+         for(int x=0;x<items[0].length;x++)
+         {
+            for(int y=0;y<items.length;y++)
+            {
+            if(items[y][x]==1)
+            items[y][x]=1;
+            }
+         }
+      }*/
+      
+   }
+   public static void goUp()
+   {
+      if (currentMap==0)
+      {
+         System.out.println("Do you really want to leave the dungeon? y/n");
+         String input = c.next();
+         if (input.equals("y"))
+         {
+            System.out.println("Goodbye, we hope you had fun, come again!!");
+            System.exit(0);
+         }
+      }
+      else
+      {
+         currentMap--;
+         changeLevel();
+         wiz.setXY(stairs[2],stairs[3]);
+      }
+   }
+   public static void goDown()
+   {
+      currentMap++;
+      if (currentMap==mapList.size())
+      {
+         int tempHeight=(int)(Math.random()*(maxHeight-minHeight)+minHeight+1);
+         int tempWidth=(int)(Math.random()*(maxWidth-minWidth)+minWidth+1);
+         newMap(tempHeight,tempWidth);
+      }
+      else 
+         changeLevel();
+      wiz.setXY(stairs[0],s

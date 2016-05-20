@@ -49,53 +49,11 @@ public class Game2 extends JPanel {
    static ImageIcon stairsUp = new ImageIcon("pictures\\stairsup.png");
    static ImageIcon stairsDown = new ImageIcon("pictures\\stairsdown.png");
    static ImageIcon wall = new ImageIcon("pictures\\wall3.jpg");
-   static ImageIcon fog = new ImageIcon("pictures\\fog.jpg");
+   static ImageIcon fog = new ImageIcon("pictures\\Fog clone.png");
    static Color wallColor = new Color(0,0,0);
    static Color fogColor = new Color(100,100,100);
    public static JFrame frame; 
    public static double encounterChance;
-   
-   public static class KL extends KeyAdapter{
-      public void keyPressed(KeyEvent e){
-         int keyCode = e.getKeyCode();
-         if(keyCode == e.VK_UP)
-         {
-            move("up");
-         }
-         else if(keyCode == e.VK_DOWN)
-         {
-            move("down");
-         }
-         else if(keyCode == e.VK_RIGHT)
-         {
-            move("right");
-         }
-         else if(keyCode == e.VK_LEFT)
-         {
-            move("left");
-         }
-         else if(keyCode == e.VK_R)
-         {
-         
-         }
-         else if(keyCode == e.VK_ENTER){
-            if(items[wiz.getY()][wiz.getX()]==2)
-               goDown();
-            else if (items[wiz.getY()][wiz.getX()]==1)
-               goUp();
-         }
-         wiz.restoreMana(1);
-         int windowx=width*50-50*3/4;
-         int windowy=height*50-50/4;
-         frame.setSize(windowx,windowy);
-         frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
-         refresh(); 
-      }
-      public void keyReleased(KeyEvent e){
-      
-      }
-   }
-   
    public void paint(Graphics g) 
    {
       Scanner c= new Scanner(System.in);
@@ -129,37 +87,43 @@ public class Game2 extends JPanel {
                g2d.setColor(wallColor);
             if (!light[y][x])
             {
-               g2d.fillRect(x*50-24,y*50-24,50,50);
+               //g2d.fillRect(x*50-24,y*50-24,50,50);
+               g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
             }
             // east wall
             //g2d.setColor(Color.BLACK);
-            if (east[y][x]==1)
+            if (east[y][x]==1&&light[y][x])
                g2d.fillRect(x*50+25,y*50-25,1,50);
+               //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
             // North
             
             //g2d.setColor(Color.BLUE);
-            if (north[y][x]==1)
+            if (north[y][x]==1&&light[y][x])
                g2d.fillRect(x*50-25,y*50-25,50,2);
+               //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
             // South
             
             //g2d.setColor(Color.GREEN);
-            if (south[y][x]==1)
+            if (south[y][x]==1&&light[y][x])
                g2d.fillRect(x*50-25,y*50+24,50,2);
+               //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
             // West
             //g2d.setColor(new Color(127,255,0));
-            if (west[y][x]==1)
+            if (west[y][x]==1&&light[y][x])
                g2d.fillRect(x*50-24,y*50-25,1,50);
+               //g2d.drawImage(fog.getImage(),x*50-24,y*50-24,50,50,null);
             
             
          }
       }
       //sux,suy,sdx,sdy
       if (light[stairs[3]][stairs[2]])
-         g2d.drawImage(stairsDown.getImage(),stairs[2]*50-25,stairs[3]*50-23,48,48,null);
+         g2d.drawImage(stairsDown.getImage(),stairs[2]*50-23,stairs[3]*50-23,48,48,null);
       if (light[stairs[1]][stairs[0]])
-         g2d.drawImage(stairsUp.getImage(),stairs[0]*50-25,stairs[1]*50-23,48,48,null);
+         g2d.drawImage(stairsUp.getImage(),stairs[0]*50-23,stairs[1]*50-23,48,48,null);
       //if (movingr>0||movingu>0)
       int wizplacex=wiz.getX()*50-25+movingl;
+      //System.out.println(wizplacex);
       int wizplacey=wiz.getY()*50-23+movingu;
       g2d.drawImage(player.getImage(),wizplacex,wizplacey,48,48,null);
       if (buttons)
@@ -337,34 +301,27 @@ public class Game2 extends JPanel {
             movingl=steps;
          encounter(false);
             
-            
-      //ActionListener action = new ActionListener();
-      /*Timer t = new Timer();
-      t.setRepeats(true);
-      t.setDelay(10);
-      t.start();
-      
-         Timer timer = new Timer();
-         timer.scheduleAtFixedRate(
-               new TimerTask() {
-               
-                  @Override
-                  public void run() {
-                     refresh();
-                     if (movingl>0)
-                        movingl--;
-                     if (movingl<0)
-                        movingl++;
-                     if (movingu>0)
-                        movingu--;
-                     if (movingu<0)
-                        movingu++;
-                  
-                  }
-               }, 0,150);
-         timer.purge();
+           /* System.out.println(movingu+" "+movingl);
+         while (movingl+movingu!=0)
+         {
+            frame.repaint();
+            try {
+               Thread.sleep(10);
+               }
+            catch(InterruptedException ex) {
+               Thread.currentThread().interrupt();
+            }
+            if (movingl>0)
+               movingl--;
+            if (movingl<0)
+               movingl++;
+            if (movingu>0)
+               movingu--;
+            if (movingu<0)
+               movingu++;
+              refresh();    
+         }
       */
-      
       }
    }
    public static void refresh()
@@ -643,7 +600,51 @@ public class Game2 extends JPanel {
             e.printStackTrace();
          }
       }
+   }
+   public static class KL extends KeyAdapter{ 
+      public void keyPressed(KeyEvent e){
+         int keyCode = e.getKeyCode();
+         if(keyCode == e.VK_UP)
+         {
+            //move("up");
+            input="up";
+         }
+         else if(keyCode == e.VK_DOWN)
+         {
+            //move("down");
+            //System.out.println("testing123");
+            input="down";
+         }
+         else if(keyCode == e.VK_RIGHT)
+         {
+            input="right";
+            //move("right");
+         }
+         else if(keyCode == e.VK_LEFT)
+         {
+            //move("left");
+            input="left";
+         }
+         else if(keyCode == e.VK_R)
+         {
+            input="cheatCommand";
+         }
+         else if(keyCode == e.VK_ENTER){
+            if(items[wiz.getY()][wiz.getX()]==2)
+               goDown();
+            else if (items[wiz.getY()][wiz.getX()]==1)
+               goUp();
+         }
+         wiz.restoreMana(1);
+         int windowx=width*50-50*3/4;
+         int windowy=height*50-50/4;
+         frame.setSize(windowx,windowy);
+         frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
+         refresh(); 
+      }
+      public void keyReleased(KeyEvent e){
       
+      }
    }
    public static void dungeonTime(int depth,String biome,int level, double encounter) 
    {
@@ -688,16 +689,19 @@ public class Game2 extends JPanel {
             frame.setVisible(false);
          else 
             frame.setVisible(true);
-                  
+         //frame.addKeyListener(new KL());    
        //System.out.println(wiz.getEnergy());
          //int waiting=0;
          
          if (waiting==0&&!combat)
          {
             refresh();
-            input = c.next();
+            //input = c.next();
+           // input = "";
             //wiz.restoreEnergy();
             //System.out.println("hello there");
+            if (input.equalsIgnoreCase("cheatcommand"))
+            input=c.next();
             switch(input)
             {
                case "move":
@@ -765,6 +769,7 @@ public class Game2 extends JPanel {
                   String tempMonster=c.next();
                   combat(tempMonster);
                   break;
+                
             }
             refresh();
          }
@@ -778,7 +783,7 @@ public class Game2 extends JPanel {
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
          frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
-      
+         input="";
          //frame.repaint();
       }
       System.out.println("test2");
