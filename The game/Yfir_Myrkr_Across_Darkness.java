@@ -19,7 +19,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    static int frameHeight=700;
    static int frameWidth=1200;
    static Scanner scan= new Scanner(System.in);
-   static ImageIcon fog = new ImageIcon("pictures\\Exeriarsis.png");
+   static ImageIcon map = new ImageIcon("pictures\\Exeriarsis.png");
    private static Wizard wiz;
    private static Game2 dungeon;
    public static JFrame frame,cFrame; 
@@ -28,7 +28,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
    
       Graphics2D g2d = (Graphics2D) g;
-      g2d.drawImage(fog.getImage(),0,0,frameWidth,frameHeight,null);
+      g2d.drawImage(map.getImage(),0,0,frameWidth,frameHeight,null);
    }
    public static void dungeon(int num)
    {
@@ -66,9 +66,27 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
          case 7:
          
             break;
+            
       }
       frame.setVisible(true);
    }
+    public static boolean mainMenu()
+   {
+      cFrame = new JFrame(MainMenuInitiator.getRandStr());
+      cFrame.setSize(1000, 500);
+      //cFrame.setBackground();
+      cFrame.setLocation(1280/2-500, 1024/2-250);
+      cFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      cFrame.setContentPane(new MainMenuInitiator());
+      cFrame.setVisible(true);
+      boolean tempBoolean=false;
+      while (!tempBoolean)
+      {
+         tempBoolean=MainMenuInitiator.finisher();
+      }
+      cFrame.setVisible(false);
+      return true;
+}
    public static Wizard getPlayer()
    {
       return wiz;
@@ -79,6 +97,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    }
    public static void main(String[] args) 
    {
+   mainMenu();
       boolean doneYet=false;
       createPlayer();
       while(!doneYet)
