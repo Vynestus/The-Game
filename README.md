@@ -19,3 +19,5 @@ With strong hearts full, our souls ignite.
 When all seems lost in the War of Light,
 Look to the stars, for hope burns bright!"
 -You are now part of the Blue Lantern Corps.
+
+http://www.java2s.com/Tutorial/Java/0261__2D-Graphics/ShowallFontsinstalledinyoursystem.htm
