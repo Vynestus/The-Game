@@ -93,7 +93,7 @@ public class Wizard
       else 
          temp=temp+"Male";
       temp=temp+charClass+pos+".png";
-      System.out.println(temp);
+      //System.out.println(temp);
       weezard = new ImageIcon(temp);
    }
    public int getX()
