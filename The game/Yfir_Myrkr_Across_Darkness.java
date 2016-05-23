@@ -80,7 +80,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    public static void main(String[] args) 
    {
       boolean doneYet=false;
-      /*createPlayer();
+      createPlayer();
       while(!doneYet)
       {
          try {
@@ -93,8 +93,8 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
             Thread.currentThread().interrupt();
          }
       }
-      wiz=new Wizard(cc.getCharName(),cc.getCharClass(),1,cc.getSex());*/
-      wiz = new Wizard("test","Warrior",1,true);
+      wiz=new Wizard(cc.getCharName(),cc.getCharClass(),1,cc.getSex());
+      //wiz = new Wizard("test","Warrior",1,true);
       //cFrame.setVisible(false);
       frame = new JFrame("Yfir Myrkr");
       frame.add(new Yfir_Myrkr_Across_Darkness());

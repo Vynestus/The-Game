@@ -80,8 +80,8 @@ public class Game2 extends JPanel {
       g2d.fillRect(0,height*50-74,width*50,25);
       if (helpMenu>0)
       {
-      g2d.setColor(Color.WHITE);
-      g2d.drawString("Use the arrow keys to move",width*50-64,20);
+         g2d.setColor(Color.WHITE);
+         g2d.drawString("Use the arrow keys to move",width*50-64,20);
          g2d.drawString("Click 'H' to turn off the this menu",width*50-64,40);
       }
       g2d.setColor(wallColor);	
@@ -326,10 +326,12 @@ public class Game2 extends JPanel {
          else if (mover.equals("east")||mover.equals("right")||mover.equals("e"))
          {
             movingl=-1*steps;
+            direction=2;
          }
          else if (mover.equals("left")||mover.equals("west")||mover.equals("w"))
          {
             movingl=steps;
+            direction=3;
          }
          encounter(false);
             
@@ -671,10 +673,15 @@ public class Game2 extends JPanel {
          }
          else if (keyCode==e.VK_H)
          {
-         if(helpMenu==250)
-         helpMenu=0;
-         else
-         helpMenu=250;
+            if(helpMenu==250)
+               helpMenu=0;
+            else
+               helpMenu=250;
+         }
+         else if (keyCode==e.VK_T)
+         {
+         // This is our testing method
+         System.out.println(wiz.getSex());
          }
          else if(keyCode == e.VK_ENTER)
          {

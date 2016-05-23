@@ -93,7 +93,7 @@ public class Wizard
       else 
          temp=temp+"Male";
       temp=temp+charClass+pos+".png";
-      //System.out.println(temp);
+      System.out.println(temp);
       weezard = new ImageIcon(temp);
    }
    public int getX()
@@ -119,6 +119,13 @@ public class Wizard
    public int getCurrentMana()
    {
       return currentMana;
+   }
+   public String getSex()
+   {
+   if (sex)
+   return "Female";
+   else
+   return "Male";
    }
    public String getName()
    {
