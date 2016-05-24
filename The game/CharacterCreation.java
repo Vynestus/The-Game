@@ -173,7 +173,6 @@ public class CharacterCreation extends JPanel {
                {
                   charClass=tempClass;
                   done=true;
-                  System.out.println("hello");
                }
                else if (question.getSelectedItem().equals("Choose your class"))
                   counter=5;

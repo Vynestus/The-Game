@@ -382,7 +382,6 @@ public class Game2 extends JPanel {
       }
       lighting(stairs[3],stairs[2],1,pathing);
       
-      System.out.println("final form");
       for(int x=1;x<height-1;x++)
       {
          for(int y=1;y<width-1;y++)
@@ -739,7 +738,7 @@ public class Game2 extends JPanel {
       while (!input.equals("exit"))
       {input="";
          if (combat)
-            System.out.println("test");
+            //System.out.println("test");
          if (combat)
             frame.setVisible(false);
          else 

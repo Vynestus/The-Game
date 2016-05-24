@@ -18,6 +18,7 @@ public class MainMenuInitiator extends JPanel
 {
    private JLabel label1, label2;
    private JTextField box;
+   public static boolean cheat=false;
    private static boolean tempBoolean=false;
    static ImageIcon extra = new ImageIcon("pictures\\Mainmenu Image.jpg");
    static ImageIcon menuImage = new ImageIcon("pictures\\Exeriarsis.png");
@@ -26,10 +27,12 @@ public class MainMenuInitiator extends JPanel
    {  
       JPanel panel = new JPanel();
       
-      panel.setLayout(new GridLayout(2,1, 5, 5));
+      panel.setLayout(new GridLayout(2,1, 0, 0));
       
       JButton startButton = new JButton("Start Game");
       startButton.addActionListener(new SB());
+      JButton skipButton = new JButton("Skip");
+      skipButton.addActionListener(new Skip());
       
       JButton quitButton = new JButton("Quit Game");
       quitButton.addActionListener(new QB());
@@ -38,6 +41,7 @@ public class MainMenuInitiator extends JPanel
    
       panel.add(startButton, BorderLayout.NORTH);
       panel.add(quitButton, BorderLayout.NORTH);   
+      panel.add(skipButton, BorderLayout.NORTH);
    }
    
    public static String getRandStr()
@@ -54,7 +58,8 @@ public class MainMenuInitiator extends JPanel
       str[8] = "Yfir Myrkr: Yfir Myrkr: Yfir Myrkr: ";
       str[9] = "Yfir Myrkr: Make Exeriarsis Great Again!";
       
-      int i = (int)(Math.random()*10);
+      
+      int i = (int)(Math.random()*str.length);
       return str[i];
    }
    
@@ -64,17 +69,17 @@ public class MainMenuInitiator extends JPanel
       
       super.paintComponent(g);
       double temp=Math.random();
-      System.out.println(temp);
+     // System.out.println(temp);
       if(temp>.05)
-      g.drawImage(menuImage.getImage(),0,0,1000,500,null);
+         g.drawImage(menuImage.getImage(),0,0,1000,500,null);
       else
-      g.drawImage(extra.getImage(),0,0,1000,500,null);  
+         g.drawImage(extra.getImage(),0,0,1000,500,null);  
       
    }
-public static boolean finisher()
-{
-return tempBoolean;
-}
+   public static boolean finisher()
+   {
+      return tempBoolean;
+   }
    private static class SB implements ActionListener  
    {
       public void actionPerformed(ActionEvent e)
@@ -83,12 +88,23 @@ return tempBoolean;
          tempBoolean=true;
       }
    }
-   
+   public static boolean getCheat()
+   {
+   return cheat;
+   }
    private static class QB implements ActionListener
    {
       public void actionPerformed(ActionEvent e)
       {
          System.exit(0);
+      }
+   }
+   private static class Skip implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         cheat=true;
+         tempBoolean=true;
       }
    }
 }
