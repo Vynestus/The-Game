@@ -19,6 +19,7 @@ public class Game2 extends JPanel {
    //private static MazeGenerator map= null;
    public static Wizard wiz;
    static CombatInitiator startCombat; 
+   static boolean finisher=true;
    static Scanner c= new Scanner(System.in);
    public static int [][] north;
    public static int [][] south;
@@ -51,8 +52,8 @@ public class Game2 extends JPanel {
    public static boolean buttons=false;
    static ImageIcon stairsUp = new ImageIcon("pictures\\stairsup.png");
    static ImageIcon stairsDown = new ImageIcon("pictures\\stairsdown.png");
-   static ImageIcon wall = new ImageIcon("pictures\\wall3.jpg");
-   static ImageIcon fog = new ImageIcon("pictures\\Fog clone.png");
+   static ImageIcon wall = new ImageIcon("pictures\\wall.jpg");
+   static ImageIcon fog = new ImageIcon("pictures\\Fog.png");
    static Color wallColor = new Color(0,0,0);
    static Color fogColor = new Color(100,100,100);
    public static JFrame frame; 
@@ -255,6 +256,7 @@ public class Game2 extends JPanel {
       if (currentMap==maxLevel)
       {
          System.out.println("In the darkness of this stairwell, you see a bright light. There lays, a sword on a pedastal. This is it.");
+         finisher=false;
          input="exit";
       }
       else
@@ -703,6 +705,7 @@ public class Game2 extends JPanel {
    public static boolean dungeonTime(int depth,String biome,int level, double encounter) 
    {
       //mapList= new ArrayList<MazeGenerator>();
+      finisher=true;
       encounterChance=encounter/100;
       maxLevel=depth-1;
       monsterLevel=level;
@@ -735,10 +738,11 @@ public class Game2 extends JPanel {
       frame.addKeyListener(new KL());
       wiz.setXY(stairs[0],stairs[1]);
       while (!input.equals("exit"))
-      {try{
-      Thread.sleep(10);
-      }
-      catch(InterruptedException ex) {
+      {
+         try{
+            Thread.sleep(10);
+         }
+         catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
          }
       //input="";
@@ -842,7 +846,7 @@ public class Game2 extends JPanel {
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
          frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
-         input="";
+         if (finisher) input="";
          //frame.repaint();
       }
       frame.dispose();
@@ -852,6 +856,7 @@ public class Game2 extends JPanel {
    public static void main(String[] args) 
    {
       independant=true;
+      finisher=true;
       if (dungeonTime(3,"plains",0,0))
          System.exit(1);
    }

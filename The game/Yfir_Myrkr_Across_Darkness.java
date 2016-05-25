@@ -210,7 +210,9 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
          wiz=new Wizard(cc.getCharName(),cc.getCharClass(),1,cc.getSex());
       }
       else 
-         wiz = new Wizard("test","Warrior",1,false);
+      {
+               wiz = new Wizard("test","Warrior",1,false);
+               }
       //cFrame.setVisible(false);
       frame = new JFrame("Yfir Myrkr");
       frame.add(new Yfir_Myrkr_Across_Darkness());
@@ -223,8 +225,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       String input="";
      
       frame.setVisible(false);
-      townTalk("Atrian");
-     
+            townTalk("Atrian");
       doneYet=false;
       while(!doneYet)
       {

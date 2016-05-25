@@ -40,6 +40,7 @@ public class Wizard
    public Wizard(String title/*,int length,int tall*/)
    {
       name=title;
+      System.out.println("here we are");
       width=Game2.width;
       height=Game2.height;
       charLevel=1;
@@ -55,7 +56,7 @@ public class Wizard
       setImage(0,0);
    
    }
-  public Wizard(String title/*, int length, int tall*/,String clas,int level,boolean gender)
+   public Wizard(String title/*, int length, int tall*/,String clas,int level,boolean gender)
    {
       name=title;
       width=Game2.width;
@@ -95,12 +96,13 @@ public class Wizard
    public static void setImage(int direction,int pos)
    {
       if (pos==2)pos=0;
-      String temp="CharacterImages\\\\"+direction;
+      String temp="CharacterImages\\\\";
       if (sex)
-         temp=temp+"Female";
-      else 
-         temp=temp+"Male";
-      temp=temp+charClass+pos+".png";
+         temp += "Female";
+      else
+         temp += "Male";
+      temp += charClass+"\\\\"+direction+pos+".png";
+      //System.out.println(temp);
       //System.out.println(temp);
       weezard = new ImageIcon(temp);
    }
@@ -114,15 +116,15 @@ public class Wizard
    }
    public int getGold()
    {
-   return gold;
+      return gold;
    }
    public void giveGold(int recieved)
    {
-   gold=gold+recieved;
+      gold=gold+recieved;
    }
    public static void levelUp()
    {
-   charLevel++;
+      charLevel++;
       if (charClass.equals("Mage"))
       {
          maxMana=charLevel*20;
@@ -137,9 +139,9 @@ public class Wizard
    }
    public void getXP(int z)
    {
-   XP=XP+z;
-   if (XP>targetXP)
-   levelUp();
+      XP=XP+z;
+      if (XP>targetXP)
+         levelUp();
    }
    public int getMaxHP()
    {
@@ -189,7 +191,7 @@ public class Wizard
       if (currentMana<maxMana)
          currentMana++;
       if (currentHP<maxHP)
-      currentHP++;
+         currentHP++;
    }
     // 1 means wall
          // 0 means empty

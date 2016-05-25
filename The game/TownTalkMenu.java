@@ -18,7 +18,7 @@ public class TownTalkMenu extends JPanel
 {
    private JLabel label1, label2;
    private JTextField box;
-   static Wizard wiz=new Wizard("hello");
+   static Wizard wiz;
    static boolean independant=true;
    static String tempDrawn="";
    static String oldText="",oldText2="",oldText3="";
@@ -139,7 +139,7 @@ public class TownTalkMenu extends JPanel
       
       try { 
          typeText();
-         Thread.sleep(500);
+         Thread.sleep(5);
       }
       catch(InterruptedException ex) {
          Thread.currentThread().interrupt();
@@ -195,6 +195,8 @@ public class TownTalkMenu extends JPanel
       tFrame.setVisible(true);
       if (!independant)
          wiz=Yfir_Myrkr_Across_Darkness.getPlayer();
+         else
+         wiz=new Wizard("test");
       getText();
       startTyping();
    }
