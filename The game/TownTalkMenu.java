@@ -42,7 +42,7 @@ public class TownTalkMenu extends JPanel
       resting = new JButton("Rest");
       talk = new JButton("Talk again");
       talk.addActionListener(new talkAgain());
-     p1.add(reset);
+      p1.add(reset);
       p1.add(shop);
       p1.add(resting);
       p1.add(talk);
@@ -132,8 +132,8 @@ public class TownTalkMenu extends JPanel
          tempDrawn=temp;
       }
       else
-      reader=false;
-      }
+         reader=false;
+   }
    public static void startTyping()
    {
       while(reader)

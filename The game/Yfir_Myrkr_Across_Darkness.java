@@ -251,6 +251,10 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
             dungeon(dungeonNum);
             dungeonNum++;
          }
+         else if (input.equals("what"))
+         {
+         System.out.println(wiz.getLevel());
+         }
          input="";
       
       }

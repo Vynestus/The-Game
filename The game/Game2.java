@@ -333,8 +333,6 @@ public class Game2 extends JPanel {
             movingl=steps;
             direction=3;
          }
-         encounter(false);
-            
             //System.out.println(movingu+" "+movingl);
         // while (movingl+movingu!=0)
          steps=steps/sub;
@@ -360,6 +358,7 @@ public class Game2 extends JPanel {
             steps--; 
          }
          wiz.setImage(direction,0);
+         encounter(false);
       }
    }
    public static void refresh()
@@ -680,7 +679,7 @@ public class Game2 extends JPanel {
          else if (keyCode==e.VK_T)
          {
          // This is our testing method
-         System.out.println(wiz.getSex());
+            System.out.println(wiz.getSex());
          }
          else if(keyCode == e.VK_ENTER)
          {
@@ -736,13 +735,19 @@ public class Game2 extends JPanel {
       frame.addKeyListener(new KL());
       wiz.setXY(stairs[0],stairs[1]);
       while (!input.equals("exit"))
-      {input="";
+      {try{
+      Thread.sleep(10);
+      }
+      catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+         }
+      //input="";
          if (combat)
             //System.out.println("test");
-         if (combat)
-            frame.setVisible(false);
-         else 
-            frame.setVisible(true);
+            if (combat)
+               frame.setVisible(false);
+            else 
+               frame.setVisible(true);
          //frame.addKeyListener(new KL());    
        //System.out.println(wiz.getEnergy());
          //int waiting=0;
@@ -837,10 +842,11 @@ public class Game2 extends JPanel {
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
          frame.setLocation(1280/2-windowx/2, 1024/2-windowy/2);
-         //input="";
+         input="";
          //frame.repaint();
       }
       frame.dispose();
+      wiz.levelUp();
       return true;
    }
    public static void main(String[] args) 

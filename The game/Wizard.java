@@ -21,9 +21,12 @@ public class Wizard
    static int maxEnergy=21;
    static int charLevel;
    static int maxHP;
+   static int XP;
    static int currentHP;
    static int attack;
    static int maxMana;
+   static int gold=0;
+   static int targetXP=1000;
    static int currentMana;
    static boolean sex;
    // false=guy true=girl
@@ -68,19 +71,23 @@ public class Wizard
       {
          case "Warrior":
             abilities.add("Power Attack");
+            gold=Dice.roll(4,4);
          // increased damage but decreased chance to hit
             break;
          case "Mage":
             maxMana=charLevel*20;
+            gold=Dice.roll(3,6);
             currentMana=charLevel*20;
             abilities.add("Fireball(5 mana)");
          // uses mana, can only cast 4 firebolts at level one
             break;
          case "Archer":
             abilities.add("True Shot");
+            gold=Dice.roll(2,4);
          // decreased damage but increased chance to hit
             break;
          case "Rogue":
+            gold=Dice.roll(4,4);
             abilities.add("Sucker Punch");
       }
    }
@@ -104,9 +111,26 @@ public class Wizard
    {
       return y;
    }
+   public static void levelUp()
+   {
+   charLevel++;
+      if (charClass.equals("Mage"))
+      {
+         maxMana=charLevel*20;
+         currentMana=charLevel*20;
+      }
+      targetXP=targetXP+charLevel*1000;
+      System.out.println(targetXP);
+   }
    public int getLevel()
    {
       return charLevel;
+   }
+   public void getXP(int z)
+   {
+   XP=XP+z;
+   if (XP>targetXP)
+   levelUp();
    }
    public int getMaxHP()
    {
@@ -122,10 +146,10 @@ public class Wizard
    }
    public String getSex()
    {
-   if (sex)
-   return "Female";
-   else
-   return "Male";
+      if (sex)
+         return "Female";
+      else
+         return "Male";
    }
    public String getName()
    {
