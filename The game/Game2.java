@@ -665,7 +665,8 @@ public class Game2 extends JPanel {
          }
          else if(keyCode == e.VK_R)
          {
-            input="cheatCommand";
+            String command=JOptionPane.showInputDialog("Enter Secret Code");
+            input=command;
          }
          else if(keyCode == e.VK_Z)
          {
@@ -767,12 +768,7 @@ public class Game2 extends JPanel {
                input=c.next();
             switch(input)
             {
-               case "move":
-               case "go":
-                  String movement=c.next();
-                  move(movement);
-                  
-                  break;
+               
                case "up":
                case "w":
                   move("up");
@@ -828,10 +824,7 @@ public class Game2 extends JPanel {
                case "draw":
                   draw();
                   break;
-               case "test":
-                  String tempMonster=c.next();
-                  combat(tempMonster);
-                  break;
+               
                 
             }
             refresh();
