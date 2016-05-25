@@ -51,10 +51,11 @@ public class Wizard
       abilities.add("Defend");
       charClass="Warrior";
       abilities.add("power attack");
+      giveGold(Dice.roll(4,4));
       setImage(0,0);
    
    }
-   public Wizard(String title/*, int length, int tall*/,String clas,int level,boolean gender)
+  public Wizard(String title/*, int length, int tall*/,String clas,int level,boolean gender)
    {
       name=title;
       width=Game2.width;
@@ -111,6 +112,14 @@ public class Wizard
    {
       return y;
    }
+   public int getGold()
+   {
+   return gold;
+   }
+   public void giveGold(int recieved)
+   {
+   gold=gold+recieved;
+   }
    public static void levelUp()
    {
    charLevel++;
@@ -120,7 +129,7 @@ public class Wizard
          currentMana=charLevel*20;
       }
       targetXP=targetXP+charLevel*1000;
-      System.out.println(targetXP);
+      //System.out.println(targetXP);
    }
    public int getLevel()
    {
@@ -175,11 +184,12 @@ public class Wizard
       x=pos;
       y=pos2;
    }
-   public static void restoreMana(int newMana)
+   public static void rest()
    {
-      currentMana=currentMana+newMana;
-      if (currentMana>maxMana)
-         currentMana=maxMana;
+      if (currentMana<maxMana)
+         currentMana++;
+      if (currentHP<maxHP)
+      currentHP++;
    }
     // 1 means wall
          // 0 means empty

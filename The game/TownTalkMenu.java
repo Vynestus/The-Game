@@ -18,6 +18,8 @@ public class TownTalkMenu extends JPanel
 {
    private JLabel label1, label2;
    private JTextField box;
+   static Wizard wiz=new Wizard("hello");
+   static boolean independant=true;
    static String tempDrawn="";
    static String oldText="",oldText2="",oldText3="";
    static String place="Atrian";
@@ -32,16 +34,18 @@ public class TownTalkMenu extends JPanel
    public TownTalkMenu() 
    {
       this.setLayout(new BorderLayout());
-      p1 = new JPanel(new GridLayout(1, 5,40,12));
+      p1 = new JPanel(new GridLayout(1, 5,0,12));
       this.add(p1,BorderLayout.PAGE_END);
    
       reset = new JButton("leave");
       reset.addActionListener(new Reset());
       shop = new JButton("Shop");
       //shop.addActionListener(new Shoppe());
-      resting = new JButton("Rest");
+      resting = new JButton("Rest in inn for a night(5 gold)");
+      resting.addActionListener(new rester());
       talk = new JButton("Talk again");
       talk.addActionListener(new talkAgain());
+      p1.add(new JLabel("Current Gold: "+wiz.getGold()));
       p1.add(reset);
       p1.add(shop);
       p1.add(resting);
@@ -61,7 +65,31 @@ public class TownTalkMenu extends JPanel
    {
       public void actionPerformed(ActionEvent e)
       {
-      
+         reader=true;
+         tempDrawn="";
+         oldText="";
+         oldText2="";
+         oldText3="";
+         tFrame.repaint();
+         getText();
+         startTyping();
+      }
+   }
+   private static class rester implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         if (wiz.getGold()>=5)
+         {
+            wiz.giveGold(-5);
+            for (int z=0;z<7;z++)
+            {
+               wiz.rest();
+            }
+            message("You sleep in the inn for the night. You have "+wiz.getGold()+" gold left.");
+         }
+         else 
+            message("You have "+wiz.getGold()+" gold. Not enough for a room");
       }
    }
    private static class TalkTimer implements ActionListener
@@ -71,10 +99,18 @@ public class TownTalkMenu extends JPanel
          tempBoolean=true;
       }
    }
+   public static void message(String said)
+   {
+      oldText3=oldText2;
+      oldText2=oldText;
+      oldText=tempDrawn;
+      tempDrawn=said;
+      tFrame.repaint();
+      p1.repaint();
+   
+   }
    public void paintComponent(Graphics g)
    {
-      
-      
       super.paintComponent(g);
       double temp=Math.random();
       //System.out.println(temp);
@@ -88,8 +124,10 @@ public class TownTalkMenu extends JPanel
       g.setFont(new Font("Agency FB Bold",1,20));
       
       
-      
       //getText();
+      String tempor="Current Gold: "+wiz.getGold();
+      int distance = g.getFontMetrics().stringWidth(tempor);
+      g.drawString(tempor,1100-distance-20,630);
       g.drawString(oldText3,0,530);
       g.drawString(oldText2,0,560);
       g.drawString(oldText,0,590);
@@ -126,10 +164,7 @@ public class TownTalkMenu extends JPanel
       String temp=sc.nextLine();
       if (!temp.equals("END"))
       {
-         oldText3=oldText2;
-         oldText2=oldText;
-         oldText=tempDrawn;
-         tempDrawn=temp;
+         message(temp);
       }
       else
          reader=false;
@@ -158,11 +193,15 @@ public class TownTalkMenu extends JPanel
       tFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       tFrame.setContentPane(new TownTalkMenu());
       tFrame.setVisible(true);
+      if (!independant)
+         wiz=Yfir_Myrkr_Across_Darkness.getPlayer();
       getText();
       startTyping();
    }
    public static void doTownStuff(String space)
    {
+      independant=false;
+      wiz=Yfir_Myrkr_Across_Darkness.getPlayer();
       place=space;
       String temp="pictures\\"+place+".jpg";
       background= new ImageIcon(temp);

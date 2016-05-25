@@ -689,7 +689,7 @@ public class Game2 extends JPanel {
             else if (items[wiz.getY()][wiz.getX()]==1)
                goUp();*/
          }
-         wiz.restoreMana(1);
+         wiz.rest();
          windowx=width*50-50*3/4+250;
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
@@ -837,7 +837,7 @@ public class Game2 extends JPanel {
             encounter(true);
             waiting--;
          }
-         wiz.restoreMana(1);
+         wiz.rest();
          windowx=width*50-50*3/4+helpMenu;
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);

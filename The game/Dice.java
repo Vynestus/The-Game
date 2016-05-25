@@ -18,7 +18,7 @@ public class Dice
    int total=0;
    for (int z=0;z<x;z++)
    {
-   System.out.println(total);
+   //System.out.println(total);
    total=total+(int)(Math.random()*y+1);
    }
    return total;
