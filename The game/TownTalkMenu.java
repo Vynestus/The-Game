@@ -24,6 +24,7 @@ public class TownTalkMenu extends JPanel
    static String oldText="",oldText2="",oldText3="";
    static String place="Atrian";
    static String tempFile;
+   static JLabel gold;
    static boolean reader=true;
    static Scanner sc;
    static JButton reset,shop,resting,talk;
@@ -45,7 +46,8 @@ public class TownTalkMenu extends JPanel
       resting.addActionListener(new rester());
       talk = new JButton("Talk again");
       talk.addActionListener(new talkAgain());
-      p1.add(new JLabel("Current Gold: "+wiz.getGold()));
+      gold = new JLabel("Current Gold: "+wiz.getGold());
+      p1.add(gold);
       p1.add(reset);
       p1.add(shop);
       p1.add(resting);
@@ -90,6 +92,7 @@ public class TownTalkMenu extends JPanel
          }
          else 
             message("You have "+wiz.getGold()+" gold. Not enough for a room");
+      gold.setText("Current Gold: "+wiz.getGold());
       }
    }
    private static class TalkTimer implements ActionListener

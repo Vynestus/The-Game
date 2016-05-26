@@ -137,8 +137,14 @@ public class CharacterCreation extends JPanel {
          switch(counter)
          {
             case 0:
-               name=namer.getText();
+             name=namer.getText();
+            if (name.equals("Weeezard"))
+            {
+            sex=false;
+            charClass="Wizard";
+            done=true;
             //System.out.println(name);
+            }
                break;
             case 1:
             //System.out.println(counter);

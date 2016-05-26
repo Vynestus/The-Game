@@ -225,7 +225,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       String input="";
      
       frame.setVisible(false);
-            townTalk("Atrian");
+            townTalk("Harvikir");
       doneYet=false;
       while(!doneYet)
       {
