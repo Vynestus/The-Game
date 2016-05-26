@@ -22,11 +22,17 @@ public class Combat extends JPanel {
    static String[] stat;
    public static boolean done;
    public int clicks = 0;
+   private static boolean independant=false;
    private static Wizard wiz;
    static ImageIcon weezard = new ImageIcon("wiz.png");
    private int number, count;
    public Combat()
    {
+   if (independant)
+   wiz=new Wizard("test");   
+   else
+   wiz=Yfir_Myrkr_Across_Darkness.getPlayer();
+   
       setLayout(new FlowLayout());
       count = 0;
       done=false;
@@ -64,10 +70,10 @@ public class Combat extends JPanel {
       label2 = new JLabel("Iterations: 0");
       add(label2);
    */
-      JLabel label1 = new JLabel(Game2.wiz.getName());
+      JLabel label1 = new JLabel(wiz.getName());
       panel.add(label1);
-      String[] temp= new String[Game2.wiz.getAbilities().size()];
-      Game2.wiz.getAbilities().toArray(temp);
+      String[] temp= new String[wiz.getAbilities().size()];
+      wiz.getAbilities().toArray(temp);
       JComboBox<String> abilities = new JComboBox<String>(temp);
       /*for(String s:Game2.wiz.getAbilities())
       {
@@ -108,6 +114,7 @@ public class Combat extends JPanel {
    }
    public static void main(String[] args)
    {
+   independant=true;
       if (startCombat.startCombat("lion"));
       startCombat.endCombat();
    }   
