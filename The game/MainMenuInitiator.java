@@ -27,7 +27,7 @@ public class MainMenuInitiator extends JPanel
    {  
       JPanel panel = new JPanel();
       
-      panel.setLayout(new GridLayout(2,1, 0, 0));
+      panel.setLayout(new GridLayout(2,2, 0, 0));
       
       JButton startButton = new JButton("Start Game");
       startButton.addActionListener(new SB());

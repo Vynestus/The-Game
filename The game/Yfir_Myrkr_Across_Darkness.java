@@ -16,7 +16,6 @@ import java.util.*;
 import javax.swing.JFileChooser;
 import java.io.*;
 import sun.audio.*;
-
 import java.io.*;
 import java.net.URL;
 import javax.sound.sampled.*;
@@ -26,63 +25,298 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
 {
    static CharacterCreation cc;
    static MainMenuInitiator mmi;
-   static int frameHeight=700;
-   static int frameWidth=1200;
-   public static boolean soundOn=false;
+   static int frameHeight=(int)(855);
+   static int frameWidth=1280;
+   public static boolean soundOn=true;
    public static String town;
    public static Clip clip;
+   public static boolean doneYet;
    public static File soundFile;
+   public static String biome="Plains";
    public static AudioInputStream audioIn;
    static Scanner scan= new Scanner(System.in);
    static ImageIcon map = new ImageIcon("pictures\\Exeriarsis.png");
    static ImageIcon townBackground;
-
+   public static int questPosition=0;
    private static Wizard wiz;
-   private static Game2 dungeon;
+   public static String input;
+   private static Game2 dungeon= new Game2();
    public static JFrame frame,cFrame,tFrame; 
+   public static JPanel p1;
    public static int dungeonNum=0;
-   public void paint(Graphics g)
+   public void paintComponent(Graphics g)
    {
-   
-      Graphics2D g2d = (Graphics2D) g;
-      g2d.drawImage(map.getImage(),0,0,frameWidth,frameHeight,null);
+      super.paintComponent(g);
+      g.drawImage(map.getImage(),0,0,frameWidth,frameHeight-30,null);
    }
-   public static void dungeon(int num)
+   public Yfir_Myrkr_Across_Darkness()
    {
+      this.setLayout(new BorderLayout());
+      p1 = new JPanel(new GridLayout(1, 7,0,12));
+      this.add(p1,BorderLayout.PAGE_END);
+      
+      JButton trainingDungeon = new JButton("Training Dungeon");
+      trainingDungeon.setFont(new Font("Agency FB Bold",1,11));
+      trainingDungeon.addActionListener(new TrainerDungeon());
+      p1.add(trainingDungeon);
+      
+      JButton dungeonOne = new JButton("First Dungeon");
+      dungeonOne.setFont(new Font("Agency FB Bold",1,13));
+      dungeonOne.addActionListener(new DungeonOne());
+      
+      JButton townOne = new JButton("Harvikir");
+      townOne.setFont(new Font("Agency FB Bold",1,20));
+      townOne.addActionListener(new TownOne());
+      
+      JButton dungeonTwo = new JButton("Dungeon Two");
+      dungeonTwo.setFont(new Font("Agency FB Bold",1,13));
+      dungeonTwo.addActionListener(new DungeonTwo());
+      
+      
+      JButton townTwo = new JButton("Isteroth");
+      townTwo.setFont(new Font("Agency FB Bold",1,20));
+      townTwo.addActionListener(new TownTwo());
+      
+      JButton dungeonThree = new JButton("Dungeon Three");
+      dungeonThree.setFont(new Font("Agency FB Bold",1,13));
+      dungeonThree.addActionListener(new DungeonThree());
+      
+      JButton dungeonFour = new JButton("Dungeon Four");
+      dungeonFour.setFont(new Font("Agency FB Bold",1,13));
+      dungeonFour.addActionListener(new DungeonFour());
+      
+      JButton townThree = new JButton("Swamp City");
+      townThree.setFont(new Font("Agency FB Bold",1,20));
+      townThree.addActionListener(new TownThree());
    
-   
+      
+      JButton dungeonFive = new JButton("Dungeon Five");
+      dungeonFive.setFont(new Font("Agency FB Bold",1,13));
+      dungeonFive.addActionListener(new DungeonFive());
+      
+      JButton dungeonSix = new JButton("Dungeon Six");
+      dungeonSix.setFont(new Font("Agency FB Bold",1,13));
+      dungeonSix.addActionListener(new DungeonSix());
+      
+      JButton dungeonSeven = new JButton("Dungeon Seven");
+      dungeonSeven.setFont(new Font("Agency FB Bold",1,13));
+      dungeonSeven.addActionListener(new DungeonSeven());
+      
+      p1.add(townOne);
+      p1.add(dungeonOne);
+      p1.add(dungeonTwo);
+      p1.add(townTwo);
+      p1.add(dungeonThree);
+      p1.add(dungeonFour);
+      p1.add(townThree);
+      p1.add(dungeonFive);
+      p1.add(dungeonSix);
+      p1.add(dungeonSeven);
+      
+   }
+   private static class DungeonOne implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         JOptionPane optionPane;
+         
+         if( JOptionPane.showConfirmDialog(
+         frame,
+         "Are you sure you want to enter the dungeon of .....?",
+         "Dungeon of the ....",
+         JOptionPane.YES_NO_OPTION)==0)
+         {
+            //dungeons(10);
+            input = "one";
+         }
+      }
+   }
+   private static class DungeonTwo implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         JOptionPane optionPane;
+         
+         if( JOptionPane.showConfirmDialog(
+         frame,
+         "Are you sure you want to enter the dungeon of .....? The dungeon level is 2",
+         "Dungeon of the ....",
+         JOptionPane.YES_NO_OPTION)==0)
+         {
+            //dungeons(10);
+            input = "two";
+         }
+      }
+   }
+   private static class DungeonThree implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         JOptionPane optionPane;
+         
+         if( JOptionPane.showConfirmDialog(
+         frame,
+         "Are you sure you want to enter the dungeon of .....? The dungeon level is 4",
+         "Dungeon of the ....",
+         JOptionPane.YES_NO_OPTION)==0)
+         {
+            //dungeons(10);
+            input = "three";
+         }
+      }
+   }
+   private static class DungeonFour implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         JOptionPane optionPane;
+         
+         if( JOptionPane.showConfirmDialog(
+         frame,
+         "Are you sure you want to enter the dungeon of .....? The dungeon level is 5",
+         "Dungeon of the ....",
+         JOptionPane.YES_NO_OPTION)==0)
+         {
+            //dungeons(10);
+            input = "four";
+         }
+      }
+   }
+   private static class DungeonFive implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         JOptionPane optionPane;
+         
+         if( JOptionPane.showConfirmDialog(
+         frame,
+         "Are you sure you want to enter the dungeon of .....? The dungeon level is 7",
+         "Dungeon of the ....",
+         JOptionPane.YES_NO_OPTION)==0)
+         {
+            //dungeons(10);
+            input = "five";
+         }
+      }
+   }
+   private static class DungeonSix implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         JOptionPane optionPane;
+         
+         if( JOptionPane.showConfirmDialog(
+         frame,
+         "Are you sure you want to enter the dungeon of .....? The dungeon level is 8",
+         "Dungeon of the ....",
+         JOptionPane.YES_NO_OPTION)==0)
+         {
+            //dungeons(10);
+            input = "six";
+         }
+      }
+   }
+   private static class DungeonSeven implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         JOptionPane optionPane;
+         
+         if( JOptionPane.showConfirmDialog(
+         frame,
+         "Are you sure you want to enter the dungeon of .....? The dungeon level is 10",
+         "Dungeon of the ....",
+         JOptionPane.YES_NO_OPTION)==0)
+         {
+            //dungeons(10);
+            input = "seven";
+         }
+      }
+   }
+   private static class TrainerDungeon implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         JOptionPane optionPane;
+         if( JOptionPane.showConfirmDialog(
+         frame,
+         "The training dungeon is a dungeon in which you won't recieve gold or treasure, but you will find more"+
+         "\n monsters to fight, and potentially level up faster. Are you sure you would"+
+         " like to enter this dungeon?",
+         "Training Dungeon",
+         JOptionPane.YES_NO_OPTION)==0)
+         {
+            //dungeons(10);
+            input = "ten";
+         }
+      }
+   }
+   private static class TownOne implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         
+         input="tone";
+         
+      }
+   }
+   private static class TownTwo implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         
+         input="ttwo";
+         
+      }
+   }
+   private static class TownThree implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         
+         input="tthree";
+         
+      }
+   }
+   public static void dungeons(int num)
+   {
       frame.setVisible(false);
-      
-      
-   
+      dungeon=new Game2();
       switch(num)
       {
          case 0:
             //System.out.println("testing");
-            dungeon.dungeonTime(1,"plains",0,0);
+            dungeon.dungeonTime(10,biome,wiz.getLevel(),0);
             break;
          case 1:
-            System.out.println("testin two");
-            dungeon.dungeonTime(5,"plains",1,20);
+            biome="Plains";
+            dungeon.dungeonTime(1,biome,1,0);
             break;
          case 2:
-         
+            biome="Desert";
+            dungeon.dungeonTime(1,biome,2,0);
             break;
          case 3:
-         
+            biome="Forest";
+            dungeon.dungeonTime(1,biome,4,0);
             break;
          case 4:
-         
+            biome="Icy";
+            dungeon.dungeonTime(1,biome,5,0);
             break;
          case 5:
-         
+            biome="Swamp";
+            dungeon.dungeonTime(1,biome,7,0);
             break;
          case 6:
-         
+            biome="Mountain";
+            dungeon.dungeonTime(1,biome,8,0);
             break;
          case 7:
-         
+            biome="Desolate";
+            dungeon.dungeonTime(1,biome,10,0);
             break;
+         
             
       }
       frame.setVisible(true);
@@ -106,7 +340,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    }
    public static boolean townTalk(String place)
    {
-   town=place;
+      town=place;
    //System.out.println(town);
      /* String temp="pictures\\"+place+".jpg";
       townBackground= new ImageIcon(temp);
@@ -134,7 +368,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    }
    public static String getTown()
    {
-   return town;
+      return town;
    }
    public static ImageIcon getTownImage()
    {
@@ -151,10 +385,6 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
          clip.stop();
       else
          clip.start();
-            //System.out.println(clip.getFrameLength());
-         //clip.setFramePosition(0);
-         //clip.start();
-      
    }
    private static void getSound() 
    {
@@ -179,53 +409,10 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
          e.printStackTrace();
       }
    }
-   public static void main(String[] args) 
+   public static void setTown(String townTitle)
    {
-      getSound();
-      /*
-      String bip = "bip.mp3";
-      Media hit = new Media(bip);
-      MediaPlayer mediaPlayer = new MediaPlayer(hit);
-      mediaPlayer.play();*/
-      mainMenu();
-      boolean cheat=mmi.getCheat();
-      boolean doneYet=false;
-      if (!cheat)
-      {
-         if (soundOn)playSound();
-         createPlayer();
-         while(!doneYet)
-         {
-            try {
-               Thread.sleep(10);
-            //if (doneYet)System.out.println("kill");
-            //System.out.println(CharacterCreation.done());
-               doneYet=cc.done();
-            } 
-            catch(InterruptedException ex) {
-               Thread.currentThread().interrupt();
-            }
-         }
-         if (soundOn)playSound();
-         wiz=new Wizard(cc.getCharName(),cc.getCharClass(),1,cc.getSex());
-      }
-      else 
-      {
-               wiz = new Wizard("test","Warrior",1,false);
-               }
-      //cFrame.setVisible(false);
-      frame = new JFrame("Yfir Myrkr");
-      frame.add(new Yfir_Myrkr_Across_Darkness());
-      int windowy=1024/2-(frameHeight/2);
-      int windowx=1280/2-(frameWidth/2);
-      frame.setSize(frameWidth,frameHeight);
-      frame.setLocation(windowx,windowy);
-      frame.setVisible(true);
-      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      String input="";
-     
       frame.setVisible(false);
-            townTalk("Harvikir");
+      townTalk(townTitle);
       doneYet=false;
       while(!doneYet)
       {
@@ -239,25 +426,111 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
             Thread.currentThread().interrupt();
          }
       }
+      frame.setVisible(true);     
+   }
+   public static void main(String[] args) 
+   {
+      getSound();
+      /*
+      String bip = "bip.mp3";
+      Media hit = new Media(bip);
+      MediaPlayer mediaPlayer = new MediaPlayer(hit);
+      mediaPlayer.play();*/
+      mainMenu();
+      boolean cheat=mmi.getCheat();
+      doneYet=false;
+      if (!cheat)
+      {
+         createPlayer();
+         while(!doneYet)
+         {
+            try {
+               Thread.sleep(10);
+            //if (doneYet)System.out.println("kill");
+            //System.out.println(CharacterCreation.done());
+               doneYet=cc.done();
+            } 
+            catch(InterruptedException ex) {
+               Thread.currentThread().interrupt();
+            }
+         }
+         wiz=new Wizard(cc.getCharName(),cc.getCharClass(),1,cc.getSex());
+      }
+      else 
+      {
+         wiz = new Wizard("test","Warrior",1,false);
+      }
+      //cFrame.setVisible(false);
+      
+      input="";
+      
+      frame = new JFrame("Yfir Myrkr");
+      frame.add(new Yfir_Myrkr_Across_Darkness());
+      int windowy=1024/2-(frameHeight/2);
+      int windowx=1280/2-(frameWidth/2);
+      frame.setBackground(Color.BLACK);
+      frame.setSize(frameWidth,frameHeight);
+      frame.setLocation(windowx,windowy);
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frame.setContentPane(new Yfir_Myrkr_Across_Darkness());
       frame.setVisible(true);
    
-     
+      setTown("Harvikir");
      
       while (!input.equals("exit"))
       {
-         input = scan.next();
+         //input = scan.next();
          //System.out.println(input);
-         if (input.equals("test"))
-         {
-            dungeon(dungeonNum);
-            dungeonNum++;
+         try{
+            Thread.sleep(10);
          }
-         else if (input.equals("what"))
+         catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+         }
+         switch (input)
          {
-         System.out.println(wiz.getLevel());
+            case "one":
+               dungeons(1);
+               break;
+            case "two":
+               dungeons(2);
+               break;
+            case "three":
+               dungeons(3);
+               break;
+            case "four":
+               dungeons(4);
+               break;
+            case "five":
+               dungeons(5);
+               break;
+            case "six":
+               dungeons(6);
+               break;
+            case "seven":
+               dungeons(7);
+               break;
+            case "ten":
+               dungeons(0);
+               break;
+            case "tone":
+               setTown("Harvikir");
+               break;
+            case "ttwo":
+               setTown("Isteroth");
+               break;
+            case "tthree":
+               setTown("...");
+               break;
+         
+         
+         
+         
+         
          }
          input="";
       
       }
+      
    }
 }

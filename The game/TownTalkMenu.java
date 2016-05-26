@@ -31,7 +31,7 @@ public class TownTalkMenu extends JPanel
    static JPanel p1;
    static JFrame tFrame;
    private static boolean tempBoolean=false;
-   static ImageIcon background= new ImageIcon("pictures\\Atrian.jpg");
+   static ImageIcon background= new ImageIcon("pictures\\Isteroth.jpg");
    public TownTalkMenu() 
    {
       this.setLayout(new BorderLayout());
@@ -39,14 +39,19 @@ public class TownTalkMenu extends JPanel
       this.add(p1,BorderLayout.PAGE_END);
    
       reset = new JButton("leave");
+      reset.setFont(new Font("Agency FB Bold",1,15));
       reset.addActionListener(new Reset());
       shop = new JButton("Shop");
+      shop.setFont(new Font("Agency FB Bold",1,15));
       //shop.addActionListener(new Shoppe());
       resting = new JButton("Rest in inn for a night(5 gold)");
       resting.addActionListener(new rester());
+      resting.setFont(new Font("Agency FB Bold",1,15));
       talk = new JButton("Talk again");
+      talk.setFont(new Font("Agency FB Bold",1,15));
       talk.addActionListener(new talkAgain());
       gold = new JLabel("Current Gold: "+wiz.getGold());
+      gold.setFont(new Font("Agency FB Bold",1,15));
       p1.add(gold);
       p1.add(reset);
       p1.add(shop);
@@ -92,7 +97,7 @@ public class TownTalkMenu extends JPanel
          }
          else 
             message("You have "+wiz.getGold()+" gold. Not enough for a room");
-      gold.setText("Current Gold: "+wiz.getGold());
+         gold.setText("Current Gold: "+wiz.getGold());
       }
    }
    private static class TalkTimer implements ActionListener
@@ -115,22 +120,15 @@ public class TownTalkMenu extends JPanel
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);
-      double temp=Math.random();
-      //System.out.println(temp);
-      
-      //background = Yfir_Myrkr_Across_Darkness.getTownImage();
-   
       g.drawImage(background.getImage(),0,0,1200,500,null);  
       g.setColor(Color.BLACK);
       g.fillRect(0,500,1200,700);
       g.setColor(Color.WHITE);
       g.setFont(new Font("Agency FB Bold",1,20));
       
-      
-      //getText();
       String tempor="Current Gold: "+wiz.getGold();
       int distance = g.getFontMetrics().stringWidth(tempor);
-      g.drawString(tempor,1100-distance-20,630);
+      //g.drawString(tempor,1100-distance-20,630);
       g.drawString(oldText3,0,530);
       g.drawString(oldText2,0,560);
       g.drawString(oldText,0,590);
@@ -142,7 +140,7 @@ public class TownTalkMenu extends JPanel
       
       try { 
          typeText();
-         Thread.sleep(5);
+         Thread.sleep(2);
       }
       catch(InterruptedException ex) {
          Thread.currentThread().interrupt();
@@ -189,16 +187,18 @@ public class TownTalkMenu extends JPanel
    }
    public static void main(String[] args)
    {
+   tempBoolean=false;
+   reader=true;
       tFrame = new JFrame(place);
       tFrame.setSize(1100, 700);
-      tFrame.setLocation(0, 0);
+      tFrame.setLocation(1280/2-1100/2, 1024/2-700/2);
       tFrame.setBackground(Color.BLACK);
       tFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       tFrame.setContentPane(new TownTalkMenu());
       tFrame.setVisible(true);
       if (!independant)
          wiz=Yfir_Myrkr_Across_Darkness.getPlayer();
-         else
+      else
          wiz=new Wizard("test");
       getText();
       startTyping();

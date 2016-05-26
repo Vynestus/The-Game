@@ -72,7 +72,6 @@ public class Game2 extends JPanel {
          
             g2d.drawImage(wall.getImage(),x*100,y*100,100,100,null);
          }
-         
       }	
       g2d.setFont(new Font("Ariel",1,15));
       g2d.fillRect(0,0,26,height*50);
@@ -94,7 +93,6 @@ public class Game2 extends JPanel {
             {
                g2d.setColor(fogColor);
             }
-            
             else
                g2d.setColor(wallColor);
             if (!light[y][x])
@@ -130,7 +128,6 @@ public class Game2 extends JPanel {
             { 
                e.printStackTrace();
             }
-            
          }
       }
       //sux,suy,sdx,sdy
@@ -153,7 +150,6 @@ public class Game2 extends JPanel {
          panel.add(button1);
          buttons=false;
       }
-   
    }
    private class stats implements ActionListener
    {
@@ -198,7 +194,6 @@ public class Game2 extends JPanel {
       //System.out.println(stairs[0]+" "+stairs[1]+" "+stairs[2]+" "+ stairs[3]);
       //System.out.println(currentMap+" is "+width+" "+height + " compared "+mapList.get(currentMap).getWidth()+" "+mapList.get(currentMap).getHeight());
      // mapList.get(currentMap).printWalls();
-      
    }
    public static void newMap(int h, int w)
    {
@@ -212,8 +207,7 @@ public class Game2 extends JPanel {
       //mapList.get(currentMap).startingItems();
       //mapList.get(mapList.size()-1)=new MazeGenerator(width,height,"map "+mapList.size());
       //map=null;
-      
-      //System.out.println(
+         //System.out.println(
       //counter++;
       height=mapList.get(mapList.size()-1).getHeight();
       width=mapList.get(mapList.size()-1).getWidth();
@@ -230,7 +224,6 @@ public class Game2 extends JPanel {
             }
          }
       }*/
-      
    }
    public static void goUp()
    {
@@ -252,7 +245,7 @@ public class Game2 extends JPanel {
       }
    }
    public static void goDown()
-   {
+   {System.out.println(currentMap+" "+maxLevel);
       if (currentMap==maxLevel)
       {
          System.out.println("In the darkness of this stairwell, you see a bright light. There lays, a sword on a pedastal. This is it.");
@@ -711,7 +704,10 @@ public class Game2 extends JPanel {
       maxLevel=depth-1;
       monsterLevel=level;
       Scanner c= new Scanner(System.in);
-      newMap(10,15);
+      int tempHeight=(int)(Math.random()*(maxHeight-minHeight)+minHeight+1);
+      int tempWidth=(int)(Math.random()*(maxWidth-minWidth)+minWidth+1);
+      
+      newMap(tempHeight,tempWidth);
       if (independant)
          wiz= new Wizard("player"/*,width,height*/);
       else
