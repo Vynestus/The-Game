@@ -1,2 +1,9 @@
-*You approach the gates of 
+*You approach the gates of Isteroth. Large spires can be seen around the town, obviously a magic place*
+Town Guard: You there! I have been told to take you in. Come along, follow me!
+*Other guards in the towers seem to keep a close eye on you. It would be best if you followed her.
+The guard leads you through the town, and leads you into a large building with a rounded purple top
+She leads you through the halls of the large building and finally at the end of a hallways, the guard knocks on a door softly
+After a moment, the door opens and a woman sits at a desk before you.
+Woman: Hello, I'm Selvry. Hopefully I did not scare you with the guards. I simply wished to speak to you before anyone else.
+
 END
