@@ -5,5 +5,9 @@ The guard leads you through the town, and leads you into a large building with a
 She leads you through the halls of the large building and finally at the end of a hallways, the guard knocks on a door softly
 After a moment, the door opens and a woman sits at a desk before you.
 Woman: Hello, I'm Selvry. Hopefully I did not scare you with the guards. I simply wished to speak to you before anyone else.
-
+I've been told of what you're trying to do. It's an honorable deed you know, It's hard to see you finishing.
+No offence.
+I would offer you assistance but there aren't many who are brave enough to take on the quest that you have.
+The most we can offer you is the hospitality in this town. I hope you can go far. We put our faith in you.
+I think I may say it for the entire town, we thank you for your service.
 END
