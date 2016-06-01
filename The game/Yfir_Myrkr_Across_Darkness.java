@@ -27,8 +27,9 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    static MainMenuInitiator mmi;
    static int frameHeight=(int)(855);
    static int frameWidth=1280;
-   public static boolean soundOn=true;
+   public static boolean soundOn=false;
    public static String town;
+   public static boolean skip=false;
    public static Clip clip;
    public static boolean doneYet;
    public static File soundFile;
@@ -37,12 +38,13 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    static Scanner scan= new Scanner(System.in);
    static ImageIcon map = new ImageIcon("pictures\\Exeriarsis.png");
    static ImageIcon townBackground;
-   public static int questPosition=0;
+   public static int questPos=1;
    private static Wizard wiz;
    public static String input;
    private static Game2 dungeon= new Game2();
    public static JFrame frame,cFrame,tFrame; 
    public static JPanel p1;
+   public static JButton dungeonOne,dungeonTwo,dungeonThree,dungeonFour,dungeonFive,dungeonSix,dungeonSeven,townTwo,townThree;
    public static int dungeonNum=0;
    public void paintComponent(Graphics g)
    {
@@ -60,7 +62,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       trainingDungeon.addActionListener(new TrainerDungeon());
       p1.add(trainingDungeon);
       
-      JButton dungeonOne = new JButton("First Dungeon");
+      dungeonOne = new JButton("First Dungeon");
       dungeonOne.setFont(new Font("Agency FB Bold",1,13));
       dungeonOne.addActionListener(new DungeonOne());
       
@@ -68,39 +70,51 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       townOne.setFont(new Font("Agency FB Bold",1,20));
       townOne.addActionListener(new TownOne());
       
-      JButton dungeonTwo = new JButton("Dungeon Two");
+      dungeonTwo = new JButton("Dungeon Two");
       dungeonTwo.setFont(new Font("Agency FB Bold",1,13));
       dungeonTwo.addActionListener(new DungeonTwo());
+      dungeonTwo.setEnabled(false);
       
       
-      JButton townTwo = new JButton("Isteroth");
+      townTwo = new JButton("Isteroth");
       townTwo.setFont(new Font("Agency FB Bold",1,20));
       townTwo.addActionListener(new TownTwo());
+      townTwo.setEnabled(false);
       
-      JButton dungeonThree = new JButton("Dungeon Three");
+      dungeonThree = new JButton("Dungeon Three");
       dungeonThree.setFont(new Font("Agency FB Bold",1,13));
       dungeonThree.addActionListener(new DungeonThree());
-      
-      JButton dungeonFour = new JButton("Dungeon Four");
-      dungeonFour.setFont(new Font("Agency FB Bold",1,13));
-      dungeonFour.addActionListener(new DungeonFour());
-      
-      JButton townThree = new JButton("Swamp City");
-      townThree.setFont(new Font("Agency FB Bold",1,20));
-      townThree.addActionListener(new TownThree());
+      dungeonThree.setEnabled(false);
    
       
-      JButton dungeonFive = new JButton("Dungeon Five");
+      dungeonFour = new JButton("Dungeon Four");
+      dungeonFour.setFont(new Font("Agency FB Bold",1,13));
+      dungeonFour.addActionListener(new DungeonFour());
+      dungeonFour.setEnabled(false);
+   
+      
+      townThree = new JButton("Skelvaska");
+      townThree.setFont(new Font("Agency FB Bold",1,20));
+      townThree.addActionListener(new TownThree());
+   townThree.setEnabled(false);
+      
+      dungeonFive = new JButton("Dungeon Five");
       dungeonFive.setFont(new Font("Agency FB Bold",1,13));
       dungeonFive.addActionListener(new DungeonFive());
+      dungeonFive.setEnabled(false);
+   
       
-      JButton dungeonSix = new JButton("Dungeon Six");
+      dungeonSix = new JButton("Dungeon Six");
       dungeonSix.setFont(new Font("Agency FB Bold",1,13));
       dungeonSix.addActionListener(new DungeonSix());
+      dungeonSix.setEnabled(false);
+   
       
-      JButton dungeonSeven = new JButton("Dungeon Seven");
+      dungeonSeven = new JButton("Dungeon Seven");
       dungeonSeven.setFont(new Font("Agency FB Bold",1,13));
       dungeonSeven.addActionListener(new DungeonSeven());
+      dungeonSeven.setEnabled(false);
+   
       
       p1.add(townOne);
       p1.add(dungeonOne);
@@ -118,16 +132,21 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       public void actionPerformed(ActionEvent e)
       {
-         JOptionPane optionPane;
-         
-         if( JOptionPane.showConfirmDialog(
-         frame,
-         "Are you sure you want to enter the dungeon of .....?",
-         "Dungeon of the ....",
-         JOptionPane.YES_NO_OPTION)==0)
+         if (questPos>1)
          {
-            //dungeons(10);
-            input = "one";
+            JOptionPane.showMessageDialog(frame, "You have already retrieved the sword from this dungeon.");
+         }
+         else
+         {
+            if( JOptionPane.showConfirmDialog(
+            frame,
+            "Are you sure you want to enter the dungeon of .....?",
+            "Dungeon of the ....",
+            JOptionPane.YES_NO_OPTION)==0)
+            {
+               input = "one";
+            }
+            dungeonTwo.setEnabled(true);
          }
       }
    }
@@ -135,16 +154,25 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       public void actionPerformed(ActionEvent e)
       {
-         JOptionPane optionPane;
-         
-         if( JOptionPane.showConfirmDialog(
-         frame,
-         "Are you sure you want to enter the dungeon of .....? The dungeon level is 2",
-         "Dungeon of the ....",
-         JOptionPane.YES_NO_OPTION)==0)
+         if (questPos>2)
          {
-            //dungeons(10);
-            input = "two";
+            JOptionPane.showMessageDialog(frame, "You have already retrieved the sword from this dungeon.");
+         }
+         else if (questPos<2)
+         {
+            JOptionPane.showMessageDialog(frame, "You still have more swords to retrieve before this one");
+         }
+         else
+         {
+            if( JOptionPane.showConfirmDialog(
+            frame,
+            "Are you sure you want to enter the dungeon of .....? The dungeon level is 2",
+            "Dungeon of the ....",
+            JOptionPane.YES_NO_OPTION)==0)
+            {
+               input = "two";
+            }
+            townTwo.setEnabled(true);
          }
       }
    }
@@ -152,16 +180,25 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       public void actionPerformed(ActionEvent e)
       {
-         JOptionPane optionPane;
-         
-         if( JOptionPane.showConfirmDialog(
-         frame,
-         "Are you sure you want to enter the dungeon of .....? The dungeon level is 4",
-         "Dungeon of the ....",
-         JOptionPane.YES_NO_OPTION)==0)
+         if (questPos>3)
          {
-            //dungeons(10);
-            input = "three";
+            JOptionPane.showMessageDialog(frame, "You have already retrieved the sword from this dungeon.");
+         }
+         else if (questPos<3)
+         {
+            JOptionPane.showMessageDialog(frame, "You still have more swords to retrieve before this one");
+         }
+         else
+         {
+            if( JOptionPane.showConfirmDialog(
+            frame,
+            "Are you sure you want to enter the dungeon of .....? The dungeon level is 4",
+            "Dungeon of the ....",
+            JOptionPane.YES_NO_OPTION)==0)
+            {
+               input = "three";
+            }
+            dungeonFour.setEnabled(true);
          }
       }
    }
@@ -169,16 +206,25 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       public void actionPerformed(ActionEvent e)
       {
-         JOptionPane optionPane;
-         
-         if( JOptionPane.showConfirmDialog(
-         frame,
-         "Are you sure you want to enter the dungeon of .....? The dungeon level is 5",
-         "Dungeon of the ....",
-         JOptionPane.YES_NO_OPTION)==0)
+         if (questPos>4)
          {
-            //dungeons(10);
-            input = "four";
+            JOptionPane.showMessageDialog(frame, "You have already retrieved the sword from this dungeon.");
+         }
+         else if (questPos<4)
+         {
+            JOptionPane.showMessageDialog(frame, "You still have more swords to retrieve before this one");
+         }
+         else
+         {
+            if( JOptionPane.showConfirmDialog(
+            frame,
+            "Are you sure you want to enter the dungeon of .....? The dungeon level is 5",
+            "Dungeon of the ....",
+            JOptionPane.YES_NO_OPTION)==0)
+            {
+               input = "four";
+            }
+            townThree.setEnabled(true);
          }
       }
    }
@@ -186,16 +232,25 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       public void actionPerformed(ActionEvent e)
       {
-         JOptionPane optionPane;
-         
-         if( JOptionPane.showConfirmDialog(
-         frame,
-         "Are you sure you want to enter the dungeon of .....? The dungeon level is 7",
-         "Dungeon of the ....",
-         JOptionPane.YES_NO_OPTION)==0)
+         if (questPos>5)
          {
-            //dungeons(10);
-            input = "five";
+            JOptionPane.showMessageDialog(frame, "You have already retrieved the sword from this dungeon.");
+         }
+         else if (questPos<5)
+         {
+            JOptionPane.showMessageDialog(frame, "You still have more swords to retrieve before this one");
+         }
+         else
+         {
+            if( JOptionPane.showConfirmDialog(
+            frame,
+            "Are you sure you want to enter the dungeon of .....? The dungeon level is 7",
+            "Dungeon of the ....",
+            JOptionPane.YES_NO_OPTION)==0)
+            {
+               input = "five";
+            }
+            dungeonSix.setEnabled(true);
          }
       }
    }
@@ -203,16 +258,25 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       public void actionPerformed(ActionEvent e)
       {
-         JOptionPane optionPane;
-         
-         if( JOptionPane.showConfirmDialog(
-         frame,
-         "Are you sure you want to enter the dungeon of .....? The dungeon level is 8",
-         "Dungeon of the ....",
-         JOptionPane.YES_NO_OPTION)==0)
+         if (questPos>6)
          {
-            //dungeons(10);
-            input = "six";
+            JOptionPane.showMessageDialog(frame, "You have already retrieved the sword from this dungeon.");
+         }
+         else if (questPos<6)
+         {
+            JOptionPane.showMessageDialog(frame, "You still have more swords to retrieve before this one");
+         }
+         else
+         {
+            if( JOptionPane.showConfirmDialog(
+            frame,
+            "Are you sure you want to enter the dungeon of .....? The dungeon level is 8",
+            "Dungeon of the ....",
+            JOptionPane.YES_NO_OPTION)==0)
+            {   
+               input = "six";
+            }
+            dungeonSeven.setEnabled(true);
          }
       }
    }
@@ -220,16 +284,24 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       public void actionPerformed(ActionEvent e)
       {
-         JOptionPane optionPane;
-         
-         if( JOptionPane.showConfirmDialog(
-         frame,
-         "Are you sure you want to enter the dungeon of .....? The dungeon level is 10",
-         "Dungeon of the ....",
-         JOptionPane.YES_NO_OPTION)==0)
+         if (questPos>7)
          {
-            //dungeons(10);
-            input = "seven";
+            JOptionPane.showMessageDialog(frame, "You have already retrieved the sword from this dungeon.");
+         }
+         else if (questPos<7)
+         {
+            JOptionPane.showMessageDialog(frame, "You still have more swords to retrieve before this one");
+         }
+         else
+         {
+            if( JOptionPane.showConfirmDialog(
+            frame,
+            "Are you sure you want to enter the dungeon of .....? The dungeon level is 10",
+            "Dungeon of the ....",
+            JOptionPane.YES_NO_OPTION)==0)
+            {
+               input = "seven";
+            }
          }
       }
    }
@@ -245,8 +317,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
          " like to enter this dungeon?",
          "Training Dungeon",
          JOptionPane.YES_NO_OPTION)==0)
-         {
-            //dungeons(10);
+         {   
             input = "ten";
          }
       }
@@ -257,7 +328,6 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       {
          
          input="tone";
-         
       }
    }
    private static class TownTwo implements ActionListener
@@ -266,6 +336,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       {
          
          input="ttwo";
+         dungeonThree.setEnabled(true);
          
       }
    }
@@ -275,6 +346,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       {
          
          input="tthree";
+         dungeonFive.setEnabled(true);
          
       }
    }
@@ -286,35 +358,35 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       {
          case 0:
             //System.out.println("testing");
-            dungeon.dungeonTime(10,biome,wiz.getLevel(),0);
+            dungeon.dungeonTime(10,biome,wiz.getLevel(),0,1);
             break;
          case 1:
             biome="Plains";
-            dungeon.dungeonTime(1,biome,1,0);
+            dungeon.dungeonTime(1,biome,1,0,1);
             break;
          case 2:
             biome="Desert";
-            dungeon.dungeonTime(1,biome,2,0);
+            dungeon.dungeonTime(1,biome,2,0,2);
             break;
          case 3:
             biome="Forest";
-            dungeon.dungeonTime(1,biome,4,0);
+            dungeon.dungeonTime(1,biome,4,0,3);
             break;
          case 4:
             biome="Icy";
-            dungeon.dungeonTime(1,biome,5,0);
+            dungeon.dungeonTime(1,biome,5,0,4);
             break;
          case 5:
             biome="Swamp";
-            dungeon.dungeonTime(1,biome,7,0);
+            dungeon.dungeonTime(1,biome,7,0,5);
             break;
          case 6:
             biome="Mountain";
-            dungeon.dungeonTime(1,biome,8,0);
+            dungeon.dungeonTime(1,biome,8,0,6);
             break;
          case 7:
             biome="Desolate";
-            dungeon.dungeonTime(1,biome,10,0);
+            dungeon.dungeonTime(1,biome,10,0,7);
             break;
          
             
@@ -390,7 +462,8 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       try {
          // Open an audio input stream.
-         File soundFile = new File("tavern.wav");
+         File soundFile = new File("Tavern.wav");
+         System.out.println(soundFile.length());
          audioIn = AudioSystem.getAudioInputStream(soundFile);
          // Get a sound clip resource.
          clip = AudioSystem.getClip();
@@ -438,6 +511,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       mediaPlayer.play();*/
       mainMenu();
       boolean cheat=mmi.getCheat();
+      boolean skip=mmi.getSkip();
       doneYet=false;
       if (!cheat)
       {
@@ -474,9 +548,14 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.setContentPane(new Yfir_Myrkr_Across_Darkness());
       frame.setVisible(true);
-   
-      setTown("Harvikir");
-     
+      if (!skip)
+      {
+         setTown("Intro");
+         if (soundOn) playSound();
+         setTown("Festival");
+         if (soundOn) playSound();
+         setTown("Harvikir");
+      } 
       while (!input.equals("exit"))
       {
          //input = scan.next();
@@ -491,21 +570,27 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
          {
             case "one":
                dungeons(1);
+               questPos=2;
                break;
             case "two":
                dungeons(2);
+               questPos=3;
                break;
             case "three":
                dungeons(3);
+               questPos=4;
                break;
             case "four":
                dungeons(4);
+               questPos=5;
                break;
             case "five":
                dungeons(5);
+               questPos=6;
                break;
             case "six":
                dungeons(6);
+               questPos=7;
                break;
             case "seven":
                dungeons(7);
@@ -520,7 +605,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
                setTown("Isteroth");
                break;
             case "tthree":
-               setTown("...");
+               setTown("Skelvaska");
                break;
          
          

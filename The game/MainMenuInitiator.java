@@ -18,6 +18,7 @@ public class MainMenuInitiator extends JPanel
 {
    private JLabel label1, label2;
    private JTextField box;
+   public static boolean skip=false;
    public static boolean cheat=false;
    private static boolean tempBoolean=false;
    static ImageIcon extra = new ImageIcon("pictures\\Mainmenu Image.jpg");
@@ -31,9 +32,10 @@ public class MainMenuInitiator extends JPanel
       
       JButton startButton = new JButton("Start Game");
       startButton.addActionListener(new SB());
-      JButton skipButton = new JButton("Skip");
+      JButton skipButton = new JButton("Skip CC");
       skipButton.addActionListener(new Skip());
-      
+      JButton skipperButton = new JButton("Skip Intro");
+      skipperButton.addActionListener(new Skipper());
       JButton quitButton = new JButton("Quit Game");
       quitButton.addActionListener(new QB());
       
@@ -42,6 +44,7 @@ public class MainMenuInitiator extends JPanel
       panel.add(startButton, BorderLayout.NORTH);
       panel.add(quitButton, BorderLayout.NORTH);   
       panel.add(skipButton, BorderLayout.NORTH);
+      panel.add(skipperButton,BorderLayout.NORTH);
    }
    
    public static String getRandStr()
@@ -92,7 +95,11 @@ public class MainMenuInitiator extends JPanel
    {
    return cheat;
    }
-   private static class QB implements ActionListener
+   public static boolean getSkip()
+   {
+   return skip;
+   }
+      private static class QB implements ActionListener
    {
       public void actionPerformed(ActionEvent e)
       {
@@ -104,6 +111,15 @@ public class MainMenuInitiator extends JPanel
       public void actionPerformed(ActionEvent e)
       {
          cheat=true;
+         tempBoolean=true;
+      }
+   }
+   private static class Skipper implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         cheat=true;
+         skip=true;
          tempBoolean=true;
       }
    }

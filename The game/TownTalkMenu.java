@@ -25,10 +25,13 @@ public class TownTalkMenu extends JPanel
    static String place="Atrian";
    static String tempFile;
    static JLabel gold;
+   static JFrame cFrame; 
+   public static Shoppe shopper;
    static boolean reader=true;
    static Scanner sc;
    static JButton reset,shop,resting,talk;
    static JPanel p1;
+   static int delay=3000;
    static JFrame tFrame;
    private static boolean tempBoolean=false;
    static ImageIcon background= new ImageIcon("pictures\\Isteroth.jpg");
@@ -37,21 +40,33 @@ public class TownTalkMenu extends JPanel
       this.setLayout(new BorderLayout());
       p1 = new JPanel(new GridLayout(1, 5,0,12));
       this.add(p1,BorderLayout.PAGE_END);
-   
-      reset = new JButton("leave");
-      reset.setFont(new Font("Agency FB Bold",1,15));
-      reset.addActionListener(new Reset());
-      shop = new JButton("Shop");
-      shop.setFont(new Font("Agency FB Bold",1,15));
-      //shop.addActionListener(new Shoppe());
-      resting = new JButton("Rest in inn for a night(5 gold)");
-      resting.addActionListener(new rester());
-      resting.setFont(new Font("Agency FB Bold",1,15));
-      talk = new JButton("Talk again");
+      if (!place.equals("Festival")&&!place.equals("Intro"))
+      {
+         reset = new JButton("leave");
+         reset.setFont(new Font("Agency FB Bold",1,15));
+         reset.addActionListener(new Reset());
+         shop = new JButton("Shop");
+         shop.setFont(new Font("Agency FB Bold",1,15));
+         shop.addActionListener(new Shoppe());
+         resting = new JButton("Rest in inn for a night(5 gold)");
+         resting.addActionListener(new rester());
+         resting.setFont(new Font("Agency FB Bold",1,15));
+         gold = new JLabel("Current Gold: "+wiz.getGold());
+         gold.setFont(new Font("Agency FB Bold",1,15));
+      }
+      else
+      {
+         reset = new JButton("Next");
+         reset.setFont(new Font("Agency FB Bold",1,15));
+         reset.addActionListener(new Reset());
+         shop = new JButton("");
+         resting = new JButton("");
+         gold = new JLabel("");
+      }
+      talk = new JButton("Skip");
       talk.setFont(new Font("Agency FB Bold",1,15));
-      talk.addActionListener(new talkAgain());
-      gold = new JLabel("Current Gold: "+wiz.getGold());
-      gold.setFont(new Font("Agency FB Bold",1,15));
+      talk.addActionListener(new skipper());
+   
       p1.add(gold);
       p1.add(reset);
       p1.add(shop);
@@ -80,6 +95,29 @@ public class TownTalkMenu extends JPanel
          tFrame.repaint();
          getText();
          startTyping();
+      }
+   }
+   private static class skipper implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         delay=0;
+      }
+   }
+   private static class Shoppe implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+      shopper=new Shoppe();
+         int shopTemp=1;
+         if (place.equals("Isteroth"))
+            shopTemp=2;
+         else if (place.equals("Skelvaska"))
+            shopTemp=3;
+         boolean tempBoolean=false;
+         shopper.start(shopTemp);
+      
+      
       }
    }
    private static class rester implements ActionListener
@@ -140,7 +178,7 @@ public class TownTalkMenu extends JPanel
       
       try { 
          typeText();
-         Thread.sleep(2);
+         Thread.sleep(delay);
       }
       catch(InterruptedException ex) {
          Thread.currentThread().interrupt();
@@ -153,6 +191,7 @@ public class TownTalkMenu extends JPanel
       tempFile="TownText\\\\"+place+".txt";
       try{
          File textList = new File(tempFile);
+         System.out.println(tempFile);
          sc = new Scanner(textList);
       }
       catch (FileNotFoundException e) 
@@ -187,8 +226,8 @@ public class TownTalkMenu extends JPanel
    }
    public static void main(String[] args)
    {
-   tempBoolean=false;
-   reader=true;
+      tempBoolean=false;
+      reader=true;
       tFrame = new JFrame(place);
       tFrame.setSize(1100, 700);
       tFrame.setLocation(1280/2-1100/2, 1024/2-700/2);
@@ -205,6 +244,7 @@ public class TownTalkMenu extends JPanel
    }
    public static void doTownStuff(String space)
    {
+      delay=3000;
       independant=false;
       wiz=Yfir_Myrkr_Across_Darkness.getPlayer();
       place=space;

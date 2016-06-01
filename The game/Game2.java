@@ -696,9 +696,9 @@ public class Game2 extends JPanel {
       
       }
    }
-   public static boolean dungeonTime(int depth,String biome,int level, double encounter) 
+   public static boolean dungeonTime(int depth,String biome,int level, double encounter,int dungeonNum) 
    {
-      //mapList= new ArrayList<MazeGenerator>();
+      mapList= new ArrayList<MazeGenerator>();
       finisher=true;
       encounterChance=encounter/100;
       maxLevel=depth-1;
@@ -846,7 +846,7 @@ public class Game2 extends JPanel {
    {
       independant=true;
       finisher=true;
-      if (dungeonTime(3,"plains",0,0))
+      if (dungeonTime(3,"plains",0,0,1))
          System.exit(1);
    }
 }
