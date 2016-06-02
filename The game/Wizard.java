@@ -22,7 +22,7 @@ public class Wizard
    static int charLevel;
    static int maxHP;
    static int XP;
-   static int currentHP;
+   static int currentHP=0;
    static int attack;
    static int maxMana;
    static int gold=0;
@@ -31,8 +31,11 @@ public class Wizard
    static boolean sex;
    // false=guy true=girl
    static String charClass;
-   static String[] Inventory;
+   static String[] offensiveItems;
+   static String[] defensiveItems;
    static String[] equippedWeapon;
+   static int currentPotions=8;
+   static int maxPotions;
    static ArrayList<String> abilities= new ArrayList<String>();
    //index 0=name, 1=damage, 2=attack, 
    static ImageIcon weezard;
@@ -53,6 +56,7 @@ public class Wizard
       charClass="Warrior";
       abilities.add("power attack");
       giveGold(Dice.roll(4,4));
+      maxHP=80;
       setImage(0,0);
    
    }
@@ -69,29 +73,36 @@ public class Wizard
       charClass=clas;
       charLevel=level;
       setImage(0,0);
+      currentHP=0;
       switch (charClass)
       {
          case "Warrior":
             abilities.add("Power Attack");
             gold=Dice.roll(4,4);
+            maxHP=Dice.roll(1,10);
          // increased damage but decreased chance to hit
             break;
          case "Mage":
             maxMana=charLevel*20;
             gold=Dice.roll(3,6);
+            maxHP=Dice.roll(1,6);
             currentMana=charLevel*20;
             abilities.add("Fireball(5 mana)");
          // uses mana, can only cast 4 firebolts at level one
             break;
          case "Archer":
             abilities.add("True Shot");
+            maxHP=Dice.roll(1,8);
             gold=Dice.roll(2,4);
          // decreased damage but increased chance to hit
             break;
          case "Rogue":
             gold=Dice.roll(4,4);
+            maxHP=Dice.roll(1,8);
             abilities.add("Sucker Punch");
       }
+      if (maxHP<3)
+      maxHP=3;
    }
    public static void setImage(int direction,int pos)
    {
@@ -132,6 +143,34 @@ public class Wizard
       }
       targetXP=targetXP+charLevel*1000;
       //System.out.println(targetXP);
+      switch (charLevel)
+      {
+         case 2:
+         
+            break;
+         case 3:
+         
+            break;
+         case 4:
+            maxPotions=4;
+            break;
+         case 5:
+         
+            break;
+         case 6:
+         
+            break;
+         case 7:
+            maxPotions=5;
+            break;
+         case 8:
+            break;
+         case 9:
+            break;
+         case 10:
+            maxPotions=6;
+            break;
+      }
    }
    public int getLevel()
    {
@@ -169,6 +208,26 @@ public class Wizard
    public ArrayList<String> getAbilities()
    {
       return abilities;
+   }
+   public static void drinkHealthPotion()
+   {
+      if (currentPotions==0)
+      {
+         JOptionPane.showMessageDialog(new JFrame(), "You don't have any potions!");
+      }
+      else if (currentHP==maxHP)
+      {
+         JOptionPane.showMessageDialog(new JFrame(), "You have full health already!");
+      }
+      else 
+      {
+         currentPotions--;
+         double tempHealed = (int)(Math.random()*40+30);
+         tempHealed=tempHealed/100;
+         currentHP+=(int)(maxHP*tempHealed);
+         if (currentHP>maxHP)
+         currentHP=maxHP;
+      }
    }
    public ImageIcon getPic()
    {

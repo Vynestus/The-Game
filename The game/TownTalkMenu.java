@@ -115,7 +115,7 @@ public class TownTalkMenu extends JPanel
          else if (place.equals("Skelvaska"))
             shopTemp=3;
          boolean tempBoolean=false;
-         shopper.start(shopTemp);
+        // shopper.start(shopTemp);
       
       
       }

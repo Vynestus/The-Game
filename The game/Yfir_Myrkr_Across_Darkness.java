@@ -362,7 +362,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
             break;
          case 1:
             biome="Plains";
-            dungeon.dungeonTime(1,biome,1,0,1);
+            dungeon.dungeonTime(1,biome,1,10,1);
             break;
          case 2:
             biome="Desert";

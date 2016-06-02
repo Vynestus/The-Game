@@ -26,6 +26,7 @@ public class Game2 extends JPanel {
    public static int [][] west;
    public static int [][] east;
    public static int [][] items;
+   public static int turnCounter=0;
    public static boolean [][] light;
    public static ArrayList<MazeGenerator> mapList = new ArrayList<MazeGenerator>();
    public static int currentMap=0; 
@@ -34,10 +35,11 @@ public class Game2 extends JPanel {
    public static int direction=0;
    private static boolean draw=false;
    static int height;
-   static int maxHeight=21;
+   static int waiting=0;
+   static int maxHeight=20;
    static int maxWidth=22;
-   static int minHeight=10;
-   static int minWidth=11;
+   static int minHeight=13;
+   static int minWidth=14;
    static int maxLevel;
    public static int helpMenu=250;
    static int monsterLevel;
@@ -54,11 +56,12 @@ public class Game2 extends JPanel {
    static ImageIcon stairsDown = new ImageIcon("pictures\\stairsdown.png");
    static ImageIcon wall = new ImageIcon("pictures\\wall.jpg");
    static ImageIcon fog = new ImageIcon("pictures\\Fog.png");
+   static ImageIcon potion=new ImageIcon("pictures\\Items\\potion.png");
    static Color wallColor = new Color(0,0,0);
    static Color fogColor = new Color(100,100,100);
    public static JFrame frame; 
    public static double encounterChance;
-   public void paint(Graphics g) 
+   public void paintComponent(Graphics g) 
    {
       Scanner c= new Scanner(System.in);
      //print background wall
@@ -73,7 +76,7 @@ public class Game2 extends JPanel {
             g2d.drawImage(wall.getImage(),x*100,y*100,100,100,null);
          }
       }	
-      g2d.setFont(new Font("Ariel",1,15));
+      g2d.setFont(new Font("Agency FB Bold",1,25));
       g2d.fillRect(0,0,26,height*50);
       g2d.fillRect(0,0,width*50,26);
       g2d.fillRect(width*50-74,0,275,height*50);
@@ -81,8 +84,11 @@ public class Game2 extends JPanel {
       if (helpMenu>0)
       {
          g2d.setColor(Color.WHITE);
-         g2d.drawString("Use the arrow keys to move",width*50-64,20);
-         g2d.drawString("Click 'H' to turn off the this menu",width*50-64,40);
+         g2d.drawString("Use the arrow keys to move",width*50-64,40);
+         g2d.drawString(wiz.currentHP+"/"+wiz.maxHP+" Your Health ",width*50-64,80);
+         g2d.drawImage(potion.getImage(),width*50-69,92,25,25,null);
+         g2d.drawString(":x"+wiz.currentPotions+"    Click 'I' to use potion",width*50-50,115);
+         g2d.drawString("Click 'H' to turn off the this menu",width*50-64,windowy-40);
       }
       g2d.setColor(wallColor);	
       for (int y=1;y<height-1;y++)
@@ -677,6 +683,10 @@ public class Game2 extends JPanel {
          // This is our testing method
             System.out.println(wiz.getSex());
          }
+         else if (keyCode==e.VK_I)
+         {
+            input="potion";
+         }
          else if(keyCode == e.VK_ENTER)
          {
             input="stairs";
@@ -685,7 +695,13 @@ public class Game2 extends JPanel {
             else if (items[wiz.getY()][wiz.getX()]==1)
                goUp();*/
          }
-         wiz.rest();
+         else if (keyCode==e.VK_SPACE)
+         {
+            waiting=1;
+         }
+         turnCounter++;
+         if (turnCounter%5==0)
+            wiz.rest();
          windowx=width*50-50*3/4+250;
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
@@ -730,7 +746,7 @@ public class Game2 extends JPanel {
          frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
          //System.out.println("it doesn't works");
       }
-      int waiting=0;
+      waiting=0;
       input="";
       frame.addKeyListener(new KL());
       wiz.setXY(stairs[0],stairs[1]);
@@ -792,6 +808,9 @@ public class Game2 extends JPanel {
                   waiting=(int)(c.nextDouble());
                   System.out.println("You are resting");
                   break;
+               case "potion":
+                  wiz.drinkHealthPotion();
+                  break;
                case "help":
                   case "?":
                   System.out.println ("move(direction)/go (direction)/w-a-s-d/right-left-up-down"+" "+ 
@@ -830,7 +849,7 @@ public class Game2 extends JPanel {
             encounter(true);
             waiting--;
          }
-         wiz.rest();
+         //wiz.rest();
          windowx=width*50-50*3/4+helpMenu;
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
@@ -846,7 +865,7 @@ public class Game2 extends JPanel {
    {
       independant=true;
       finisher=true;
-      if (dungeonTime(3,"plains",0,0,1))
+      if (dungeonTime(30,"plains",0,10,1))
          System.exit(1);
    }
 }
