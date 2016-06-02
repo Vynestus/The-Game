@@ -51,6 +51,7 @@ public class Game2 extends JPanel {
    static int counter=0;
    static int movingl=0;
    static int movingu=0;
+   static String biome;
    public static boolean buttons=false;
    static ImageIcon stairsUp = new ImageIcon("pictures\\stairsup.png");
    static ImageIcon stairsDown = new ImageIcon("pictures\\stairsdown.png");
@@ -68,6 +69,8 @@ public class Game2 extends JPanel {
       Graphics2D g2d = (Graphics2D) g;
       //g2d.setColor(new Color(127,255,0));
       g2d.setColor(wallColor);	
+      if (biome.equals("Swamp"))
+      {
       for (int y=0;y<(height)/2;y++)
       {
          for (int x=0;x<(width)/2;x++)
@@ -76,6 +79,17 @@ public class Game2 extends JPanel {
             g2d.drawImage(wall.getImage(),x*100,y*100,100,100,null);
          }
       }	
+      }
+      else 
+      {
+      for (int y=0;y<(height);y++)
+      {
+         for (int x=0;x<(width);x++)
+         {
+         
+            g2d.drawImage(wall.getImage(),x*50,y*50,50,50,null);
+         }
+      }      }
       g2d.setFont(new Font("Agency FB Bold",1,25));
       g2d.fillRect(0,0,26,height*50);
       g2d.fillRect(0,0,width*50,26);
@@ -712,8 +726,10 @@ public class Game2 extends JPanel {
       
       }
    }
-   public static boolean dungeonTime(int depth,String biome,int level, double encounter,int dungeonNum) 
+   public static boolean dungeonTime(int depth,String biomes,int level, double encounter,int dungeonNum) 
    {
+   biome=biomes;
+   wall=new ImageIcon("pictures\\"+biome+".png");
       mapList= new ArrayList<MazeGenerator>();
       finisher=true;
       encounterChance=encounter/100;
@@ -865,7 +881,7 @@ public class Game2 extends JPanel {
    {
       independant=true;
       finisher=true;
-      if (dungeonTime(30,"plains",0,10,1))
+      if (dungeonTime(30,"Swamp",0,10,1))
          System.exit(1);
    }
 }

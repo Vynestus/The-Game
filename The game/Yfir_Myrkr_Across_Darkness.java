@@ -96,7 +96,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       townThree = new JButton("Skelvaska");
       townThree.setFont(new Font("Agency FB Bold",1,20));
       townThree.addActionListener(new TownThree());
-   townThree.setEnabled(false);
+      townThree.setEnabled(false);
       
       dungeonFive = new JButton("Dungeon Five");
       dungeonFive.setFont(new Font("Agency FB Bold",1,13));
@@ -358,7 +358,12 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       {
          case 0:
             //System.out.println("testing");
-            dungeon.dungeonTime(10,biome,wiz.getLevel(),0,1);
+            if (wiz.getLevel()>10)
+            {
+               dungeon.dungeonTime(10,biome,10,0,1);
+            }
+            else
+               dungeon.dungeonTime(10,biome,wiz.getLevel(),0,1);
             break;
          case 1:
             biome="Plains";
