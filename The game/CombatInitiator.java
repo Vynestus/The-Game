@@ -16,28 +16,35 @@ public class CombatInitiator
 {
    public static String[] stats;
    static JFrame cFrame;
+   static Combat fight= new Combat();
    static boolean dead=false;
    public static boolean startCombat(String creature)
    { 
       dead=false;
-      getStats(creature);
+      findStats(creature);
       if (!dead)
       {
-         cFrame = new JFrame("COMBAT HAS STARTED!!!");
+         /*cFrame = new JFrame("COMBAT HAS STARTED!!!");
          cFrame.setSize(1000, 500);
          cFrame.setLocation(1280/2-500, 1024/2-250);
          cFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          cFrame.setContentPane(new Combat());
-         cFrame.setVisible(true);
+         cFrame.setVisible(true);*/
+         fight.doCombat();
          while (!dead)
          {
-            dead=Combat.deadYet();
+            dead=fight.deadYet();
          }
       }
       return true;
    }
-   public static void getStats(String name)
+   public static String[] getStats()
    {
+   return stats;
+   }
+   public static void findStats(String name)
+   {
+   System.out.println(name);
       //System.out.println(name);
       String munster = "";
       stats = new String[7];
@@ -78,6 +85,6 @@ public class CombatInitiator
    public static void endCombat()
    {
    
-      cFrame.dispose();
+      fight.end();
    }
 }

@@ -33,7 +33,7 @@ public class Wizard
    static String charClass;
    static ArrayList<String> items=new ArrayList<String>();
    static String[] equippedWeapon;
-   static int currentPotions=8;
+   static int currentPotions=1;
    static int maxPotions;
    static ArrayList<String> abilities= new ArrayList<String>();
    //index 0=name, 1=damage, 2=attack, 
@@ -115,6 +115,10 @@ public class Wizard
       //System.out.println(temp);
       //System.out.println(temp);
       weezard = new ImageIcon(temp);
+   }
+   public static ImageIcon getImage()
+   {
+   return weezard;
    }
    public int getX()
    {
@@ -225,7 +229,7 @@ public class Wizard
       else 
       {
          currentPotions--;
-         double tempHealed = (int)(Math.random()*40+30);
+         double tempHealed = (int)(Math.random()*30+20);
          tempHealed=tempHealed/100;
          currentHP+=(int)(maxHP*tempHealed);
          if (currentHP>maxHP)

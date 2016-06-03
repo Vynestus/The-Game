@@ -200,6 +200,10 @@ public class Game2 extends JPanel {
    {
       return west;
    }
+   public static Wizard getPlayer()
+   {
+   return wiz;
+   }
    public static void changeLevel()
    {
       north=mapList.get(currentMap).getNorth();
@@ -211,6 +215,25 @@ public class Game2 extends JPanel {
       stairs=mapList.get(currentMap).getStairs();
       items=mapList.get(currentMap).getItems();
       light = new boolean[north.length][north[1].length];
+      
+      
+      /*int tempRoom=(int)(Math.random()*(width-6)+3);
+      int tempRoom1=(int)(Math.random()*(height-4)+3);
+      System.out.println(tempRoom+" "+tempRoom1);
+      for (int x=-2;x<4;x++)
+      {
+      for (int y=-2;y<4;y++)
+      {
+      north[tempRoom1+y][tempRoom+x]=0;
+       east[tempRoom1+y][tempRoom+x]=0;
+        south[tempRoom1+y][tempRoom+x]=0;
+         west[tempRoom1+y][tempRoom+x]=0;
+      }
+      }*/
+      
+      
+      
+      
       //System.out.println(stairs[0]+" "+stairs[1]+" "+stairs[2]+" "+ stairs[3]);
       //System.out.println(currentMap+" is "+width+" "+height + " compared "+mapList.get(currentMap).getWidth()+" "+mapList.get(currentMap).getHeight());
      // mapList.get(currentMap).printWalls();
@@ -292,8 +315,11 @@ public class Game2 extends JPanel {
    public static void combat(String monster)
    {
       frame.setVisible(false);
+      combat=true;
       if (startCombat.startCombat(monster));
-      startCombat.endCombat();
+      //startCombat.endCombat();
+      System.out.println("test");
+      combat=false;
       frame.setVisible(true);
    }
    public static void printing()
@@ -881,7 +907,7 @@ public class Game2 extends JPanel {
    {
       independant=true;
       finisher=true;
-      if (dungeonTime(30,"Swamp",0,10,1))
+      if (dungeonTime(30,"Swamp",1,90,1))
          System.exit(1);
    }
 }

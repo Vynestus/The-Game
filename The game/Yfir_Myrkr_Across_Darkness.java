@@ -45,7 +45,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    public static JFrame frame,cFrame,tFrame; 
    public static JPanel p1;
    public static JButton dungeonOne,dungeonTwo,dungeonThree,dungeonFour,dungeonFive,dungeonSix,dungeonSeven,townTwo,townThree;
-   public static int dungeonNum=0;
+   public static int dungeonNum=0;               
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);
