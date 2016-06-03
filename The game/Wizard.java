@@ -31,8 +31,7 @@ public class Wizard
    static boolean sex;
    // false=guy true=girl
    static String charClass;
-   static String[] offensiveItems;
-   static String[] defensiveItems;
+   static ArrayList<String> items=new ArrayList<String>();
    static String[] equippedWeapon;
    static int currentPotions=8;
    static int maxPotions;
@@ -54,7 +53,7 @@ public class Wizard
       abilities.add("Attack");
       abilities.add("Defend");
       charClass="Warrior";
-      abilities.add("power attack");
+      abilities.add("Power Attack");
       giveGold(Dice.roll(4,4));
       maxHP=80;
       setImage(0,0);
@@ -128,6 +127,10 @@ public class Wizard
    public int getGold()
    {
       return gold;
+   }
+   public ArrayList<String> getItems()
+   {
+   return items;
    }
    public void giveGold(int recieved)
    {
