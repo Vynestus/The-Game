@@ -35,7 +35,7 @@ Faerie
 Zombie
 Mantis
 Level4
-12
+13
 Bear
 Zombie
 Skeleton
@@ -48,9 +48,9 @@ Worg
 Faerie
 Lion
 Bugbear
+wolf
 Level5
-10
-Wolf
+9
 Orc
 Ogre
 Ghoul
