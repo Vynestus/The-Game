@@ -20,16 +20,11 @@ public class Wizard
    static int height;
    static int maxEnergy=21;
    static int charLevel;
-   static int XP;
-   
    static int maxHP;
-   static int attack;
-   static int defense;
-   static int damage;
-   static int speed;
-   static int maxMana;
+   static int XP;
    static int currentHP=0;
-   
+   static int attack;
+   static int maxMana;
    static int gold=0;
    static int targetXP=1000;
    static int currentMana;
@@ -38,7 +33,7 @@ public class Wizard
    static String charClass;
    static ArrayList<String> items=new ArrayList<String>();
    static String[] equippedWeapon;
-   static int currentPotions=3;
+   static int currentPotions=8;
    static int maxPotions;
    static ArrayList<String> abilities= new ArrayList<String>();
    //index 0=name, 1=damage, 2=attack, 
@@ -82,9 +77,6 @@ public class Wizard
       {
          case "Warrior":
             abilities.add("Stab");
-            abilities.add("Mortal Wound");
-            abilities.add("Battle Stance");
-            abilities.add("Fortify");
             
             gold=Dice.roll(4,4);
             maxHP=Dice.roll(1,10);
@@ -97,16 +89,10 @@ public class Wizard
             currentMana=charLevel*20;
             
             abilities.add("Fireball(5 mana)");
-            abilities.add("Lightning Bolt(5 mana)");
-            abilities.add("Healing(5 mana)");
-            abilities.add("Iron Skin(5 mana)");
          // uses mana, can only cast 4 firebolts at level one
             break;
          case "Archer":
             abilities.add("Stab");
-            abilities.add("Incendiary Shot");
-            abilities.add("Keen Eye");
-            abilities.add("Paralysing Shot");
             
             maxHP=Dice.roll(1,8);
             gold=Dice.roll(2,4);
@@ -114,9 +100,6 @@ public class Wizard
             break;
          case "Rogue":
             abilities.add("Stab");
-            abilities.add("Shadow Step");
-            abilities.add("Sucker Punch");
-            abilities.add("Vanish");
                                     
             gold=Dice.roll(4,4);
             maxHP=Dice.roll(1,8);
@@ -173,7 +156,22 @@ public class Wizard
          
             break;
          case 3:
-         
+            if (charClass.equals("Warrior"))
+            {
+               abilities.add("Battle Stance");
+            }
+            else if (charClass.equals("Mage"))
+            {
+               abilities.add("Iron Skin(5 mana)");
+            }
+            else if (charClass.equals("Archer"))
+            {
+               abilities.add("Keen Eye");
+            }
+            else if (charClass.equals("Rogue"))
+            {
+               abilities.add("Shadow Step");
+            }
             break;
          case 4:
             maxPotions=4;
@@ -182,16 +180,50 @@ public class Wizard
          
             break;
          case 6:
-         
+            if (charClass.equals("Warrior"))
+            {
+               abilities.add("Mortal Wound");
+            }
+            else if (charClass.equals("Mage"))
+            {
+               abilities.add("Lightning Bolt(5 mana)");
+            }
+            else if (charClass.equals("Archer"))
+            {
+               abilities.add("Incendiary Shot");
+            }
+            else if (charClass.equals("Rogue"))
+            {
+               abilities.add("Sucker Punch");
+            }
             break;
          case 7:
+         
             maxPotions=5;
             break;
          case 8:
+         
             break;
          case 9:
+         
             break;
          case 10:
+            if (charClass.equals("Warrior"))
+            {
+               abilities.add("Fortify");
+            }
+            else if (charClass.equals("Mage"))
+            {
+               abilities.add("Healing(5 mana)");
+            }
+            else if (charClass.equals("Archer"))
+            {
+               abilities.add("Paralysing Shot");
+            }
+            else if (charClass.equals("Rogue"))
+            {
+               abilities.add("Vanish");
+            }
             maxPotions=6;
             break;
       }
