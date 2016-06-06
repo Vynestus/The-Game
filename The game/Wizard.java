@@ -20,11 +20,15 @@ public class Wizard
    static int height;
    static int maxEnergy=21;
    static int charLevel;
-   static int maxHP;
    static int XP;
-   static int currentHP=0;
+   
+   static int maxHP;
    static int attack;
+   static int defense;
+   static int speed;
    static int maxMana;
+   static int currentHP=0;
+   
    static int gold=0;
    static int targetXP=1000;
    static int currentMana;
@@ -33,7 +37,7 @@ public class Wizard
    static String charClass;
    static ArrayList<String> items=new ArrayList<String>();
    static String[] equippedWeapon;
-   static int currentPotions=8;
+   static int currentPotions=3;
    static int maxPotions;
    static ArrayList<String> abilities= new ArrayList<String>();
    //index 0=name, 1=damage, 2=attack, 
