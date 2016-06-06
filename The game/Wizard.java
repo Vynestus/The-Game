@@ -20,15 +20,20 @@ public class Wizard
    static int height;
    static int maxEnergy=21;
    static int charLevel;
-   static int maxHP;
    static int XP;
-   static int currentHP=0;
-   static int attack;
-   static int maxMana;
    static int gold=0;
    static int targetXP=1000;
    static int currentMana;
    static boolean sex;
+   
+   static int maxHP;
+   static int attack;
+   static int defense;
+   static int damage;
+   static int speed;
+   static int maxMana;
+   static int currentHP=0;
+   
    // false=guy true=girl
    static String charClass;
    static ArrayList<String> items=new ArrayList<String>();
