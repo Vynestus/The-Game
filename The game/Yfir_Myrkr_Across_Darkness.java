@@ -27,7 +27,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    static MainMenuInitiator mmi;
    static int frameHeight=(int)(855);
    static int frameWidth=1280;
-   public static boolean soundOn=false;
+   public static boolean soundOn=true;
    public static String town;
    public static boolean skip=false;
    public static Clip clip;
@@ -367,31 +367,31 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
             break;
          case 1:
             biome="Plains";
-            dungeon.dungeonTime(1,biome,1,10,1);
+            dungeon.dungeonTime(3,biome,1,10,1);
             break;
          case 2:
             biome="Desert";
-            dungeon.dungeonTime(1,biome,2,0,2);
+            dungeon.dungeonTime(7,biome,2,15,2);
             break;
          case 3:
             biome="Forest";
-            dungeon.dungeonTime(1,biome,4,0,3);
+            dungeon.dungeonTime(10,biome,4,20,3);
             break;
          case 4:
             biome="Icy";
-            dungeon.dungeonTime(1,biome,5,0,4);
+            dungeon.dungeonTime(13,biome,5,20,4);
             break;
          case 5:
             biome="Swamp";
-            dungeon.dungeonTime(1,biome,7,0,5);
+            dungeon.dungeonTime(15,biome,7,30,5);
             break;
          case 6:
             biome="Mountain";
-            dungeon.dungeonTime(1,biome,8,0,6);
+            dungeon.dungeonTime(20,biome,8,0,6);
             break;
          case 7:
             biome="Desolate";
-            dungeon.dungeonTime(1,biome,10,0,7);
+            dungeon.dungeonTime(25,biome,10,0,7);
             break;
          
             
@@ -455,19 +455,23 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       cc.characterCreate();
    }
-   private static void playSound()
+   private static void playSound(String song)
    {
       
       if (clip.isRunning()) 
          clip.stop();
       else
+      {
+         getSound(song);
          clip.start();
+      }
    }
-   private static void getSound() 
+   private static void getSound(String song) 
    {
       try {
          // Open an audio input stream.
-         File soundFile = new File("Tavern.wav");
+         String songs=song+".wav";
+         File soundFile = new File(songs);
          System.out.println(soundFile.length());
          audioIn = AudioSystem.getAudioInputStream(soundFile);
          // Get a sound clip resource.
@@ -508,7 +512,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    }
    public static void main(String[] args) 
    {
-      getSound();
+      getSound("Tavern");  
       /*
       String bip = "bip.mp3";
       Media hit = new Media(bip);
@@ -520,6 +524,22 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       doneYet=false;
       if (!cheat)
       {
+         if (soundOn)
+         {
+            playSound("Intro");
+            JFrame tframe = new JFrame("Intro");
+            tframe.setSize(1000,500);
+            tframe.setLocation(1280/2-500,1024/2-250);
+           tframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      tframe.setContentPane(new Intro());
+      tframe.setVisible(true);
+            try{
+               Thread.sleep(102000);
+            }
+            catch(InterruptedException ex) {
+               Thread.currentThread().interrupt();
+            }
+         }
          createPlayer();
          while(!doneYet)
          {
@@ -556,9 +576,9 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       if (!skip)
       {
          setTown("Intro");
-         if (soundOn) playSound();
+         if (soundOn) playSound("Tavern");
          setTown("Festival");
-         if (soundOn) playSound();
+         if (soundOn) playSound("Tavern");
          setTown("Harvikir");
       } 
       while (!input.equals("exit"))

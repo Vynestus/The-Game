@@ -73,7 +73,7 @@ public class MainMenuInitiator extends JPanel
       super.paintComponent(g);
       double temp=Math.random();
      // System.out.println(temp);
-      if(temp>.05)
+      if(temp>.02)
          g.drawImage(menuImage.getImage(),0,0,1000,500,null);
       else
          g.drawImage(extra.getImage(),0,0,1000,500,null);  

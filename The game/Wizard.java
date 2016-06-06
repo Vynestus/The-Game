@@ -27,10 +27,10 @@ public class Wizard
    static boolean sex;
    
    static int maxHP;
-   static int attack;
-   static int defense;
-   static int damage;
-   static int speed;
+   static int attack=50;
+   static int defense=3;
+   static int damage=4;
+   static int speed=50;
    static int maxMana;
    static int currentHP=0;
    
@@ -55,14 +55,14 @@ public class Wizard
      // x=(int)(Math.random()*(length-2)+1);
       //y=(int)(Math.random()*(height-2)+1);
        //System.out.println(x+" "+y);
-      abilities.add("Attack");
+      abilities.add("Punch");
       abilities.add("Defend");
       charClass="Warrior";
-      abilities.add("Power Attack");
+      abilities.add("Stab");
       giveGold(Dice.roll(4,4));
       maxHP=80;
       setImage(0,0);
-   
+   currentHP=maxHP;
    }
    public Wizard(String title/*, int length, int tall*/,String clas,int level,boolean gender)
    {
@@ -72,20 +72,17 @@ public class Wizard
       sex=gender;
      // x=(int)(Math.random()*(length-2)+1);
       //y=(int)(Math.random()*(height-2)+1);
-      //abilities.add("Attack");
+      abilities.add("Punch");
       abilities.add("Defend");
       charClass=clas;
       charLevel=1;
-      for (int x=0;x<level;x++)
-      {
-         levelUp();
-      }
+      
       setImage(0,0);
       currentHP=0;
       switch (charClass)
       {
          case "Warrior":
-            abilities.add("Stab");
+            abilities.add("Slash");
             
             gold=Dice.roll(4,4);
             maxHP=Dice.roll(1,12);
@@ -101,7 +98,7 @@ public class Wizard
          // uses mana, can only cast 4 firebolts at level one
             break;
          case "Archer":
-            abilities.add("Stab");
+            abilities.add("Shoot");
             
             maxHP=Dice.roll(1,8);
             gold=Dice.roll(2,4);
@@ -115,6 +112,11 @@ public class Wizard
       }
       if (maxHP<3)
          maxHP=3;
+         for (int x=1;x<level;x++)
+      {
+         levelUp();
+      }
+      currentHP=maxHP;
    }
    public static void setImage(int direction,int pos)
    {
@@ -152,6 +154,7 @@ public class Wizard
    public static void levelUp()
    {
       charLevel++;
+       JOptionPane.showMessageDialog(new JFrame(), "Congragulations, you are now level "+charLevel);
       if (charClass.equals("Mage"))
       {
          maxMana=charLevel*20;
@@ -184,11 +187,11 @@ public class Wizard
          case 3:
             if (charClass.equals("Warrior"))
             {
-               maxHP+=Dice.roll(1,10);
+               abilities.add("Battle Stance");
             }
             else if (charClass.equals("Mage"))
             {
-               abilities.add("Iron Skin(5 mana)");
+               abilities.add("Lightning Bolt(10 mana)");
             }
             else if (charClass.equals("Archer"))
             {
@@ -208,11 +211,11 @@ public class Wizard
          case 6:
             if (charClass.equals("Warrior"))
             {
-               abilities.add("Mortal Wound");
+               abilities.add("Gouge");
             }
             else if (charClass.equals("Mage"))
             {
-               abilities.add("Lightning Bolt(10 mana)");
+               abilities.add("Iron Skin(5 mana)");
             }
             else if (charClass.equals("Archer"))
             {
@@ -253,6 +256,7 @@ public class Wizard
             maxPotions=6;
             break;
       }
+      currentHP=maxHP;
    }
    public int getLevel()
    {
@@ -268,6 +272,11 @@ public class Wizard
    {
       return maxHP;
    }
+   public static void recievePotion()
+   {
+   if (currentPotions!=maxPotions)
+   currentPotions++;
+   }
    public int getCurrentHP()
    {
       return currentHP;
@@ -275,6 +284,19 @@ public class Wizard
    public int getCurrentMana()
    {
       return currentMana;
+   }
+   public static void damage(int dam)
+   {
+   currentHP-=dam;
+   if (currentHP<1)
+   {
+   ImageIcon icon = new ImageIcon("pictures\\gameOver.jpg");
+   JOptionPane.showMessageDialog(
+                        null,
+                        new JLabel("\n Sorry it had to end this way, at least you made it to level "+charLevel, icon, JLabel.LEFT),
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+   System.exit(1);
+   }
    }
    public String getSex()
    {

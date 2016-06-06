@@ -47,7 +47,7 @@ public class CombatInitiator
    System.out.println(name);
       //System.out.println(name);
       String munster = "";
-      stats = new String[7];
+      stats = new String[8];
       File list = new File("Monsters.txt");
       try {
          Scanner sc = new Scanner(list);
@@ -64,15 +64,15 @@ public class CombatInitiator
          else
          {
             stats[0]=munster;
-            for (int x=1;x<7;x++)
+            for (int x=1;x<8;x++)
             {
                stats[x]=sc.next();
-            }/*
-            for (int x=0;x<7;x++)
+            }
+            for (int x=0;x<8;x++)
             {
                System.out.print(stats[x]+"\t");
             }
-            System.out.println();*/
+            System.out.println();
          }
       }
       catch (FileNotFoundException e) 

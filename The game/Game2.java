@@ -317,7 +317,7 @@ public class Game2 extends JPanel {
       frame.setVisible(false);
       combat=true;
       if (startCombat.startCombat(monster));
-      //startCombat.endCombat();
+      startCombat.endCombat();
       System.out.println("test");
       combat=false;
       frame.setVisible(true);
@@ -741,7 +741,6 @@ public class Game2 extends JPanel {
          }
          turnCounter++;
          if (turnCounter%5==0)
-            wiz.rest();
          windowx=width*50-50*3/4+250;
          windowy=height*50-50/4;
          frame.setSize(windowx,windowy);
@@ -880,6 +879,9 @@ public class Game2 extends JPanel {
                   break;
                case "draw":
                   draw();
+                  break;
+                  case "level":
+                  wiz.levelUp();
                   break;
                
                 
