@@ -25,6 +25,7 @@ public class Wizard
    static int maxHP;
    static int attack;
    static int defense;
+   static int damage;
    static int speed;
    static int maxMana;
    static int currentHP=0;
