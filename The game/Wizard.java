@@ -38,7 +38,7 @@ public class Wizard
    static String charClass;
    static ArrayList<String> items=new ArrayList<String>();
    static String[] equippedWeapon;
-   static int currentPotions=8;
+   static int currentPotions=3;
    static int maxPotions;
    static ArrayList<String> abilities= new ArrayList<String>();
    //index 0=name, 1=damage, 2=attack, 
@@ -75,7 +75,11 @@ public class Wizard
       //abilities.add("Attack");
       abilities.add("Defend");
       charClass=clas;
-      charLevel=level;
+      charLevel=1;
+      for (int x=0;x<level;x++)
+      {
+         levelUp();
+      }
       setImage(0,0);
       currentHP=0;
       switch (charClass)
@@ -84,7 +88,7 @@ public class Wizard
             abilities.add("Stab");
             
             gold=Dice.roll(4,4);
-            maxHP=Dice.roll(1,10);
+            maxHP=Dice.roll(1,12);
          // increased damage but decreased chance to hit
             break;
          case "Mage":
@@ -107,7 +111,7 @@ public class Wizard
             abilities.add("Stab");
                                     
             gold=Dice.roll(4,4);
-            maxHP=Dice.roll(1,8);
+            maxHP=Dice.roll(1,10);
       }
       if (maxHP<3)
          maxHP=3;
@@ -155,6 +159,23 @@ public class Wizard
       }
       targetXP=targetXP+charLevel*1000;
       //System.out.println(targetXP);
+      if (charClass.equals("Warrior"))
+      {
+         maxHP+=Dice.roll(1,12);
+      }
+      else if (charClass.equals("Mage"))
+      {
+         maxHP+=Dice.roll(1,6);
+         System.out.println(maxHP);
+      }
+      else if (charClass.equals("Archer"))
+      {
+         maxHP+=Dice.roll(1,8);
+      }
+      else if (charClass.equals("Rogue"))
+      {
+         maxHP+=Dice.roll(1,10);
+      }
       switch (charLevel)
       {
          case 2:
@@ -163,7 +184,7 @@ public class Wizard
          case 3:
             if (charClass.equals("Warrior"))
             {
-               abilities.add("Battle Stance");
+               maxHP+=Dice.roll(1,10);
             }
             else if (charClass.equals("Mage"))
             {
@@ -191,7 +212,7 @@ public class Wizard
             }
             else if (charClass.equals("Mage"))
             {
-               abilities.add("Lightning Bolt(5 mana)");
+               abilities.add("Lightning Bolt(10 mana)");
             }
             else if (charClass.equals("Archer"))
             {
@@ -219,7 +240,7 @@ public class Wizard
             }
             else if (charClass.equals("Mage"))
             {
-               abilities.add("Healing(5 mana)");
+               abilities.add("Healing(8 mana)");
             }
             else if (charClass.equals("Archer"))
             {
@@ -283,9 +304,10 @@ public class Wizard
       else 
       {
          currentPotions--;
-         double tempHealed = (int)(Math.random()*40+30);
-         tempHealed=tempHealed/100;
-         currentHP+=(int)(maxHP*tempHealed);
+         double tempHealed = (int)(Math.random()*45+25);
+         tempHealed=maxHP*tempHealed/100;
+         if (tempHealed<1) tempHealed=1;
+         currentHP+=(int)(tempHealed);
          if (currentHP>maxHP)
             currentHP=maxHP;
       }
