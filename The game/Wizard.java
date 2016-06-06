@@ -33,7 +33,7 @@ public class Wizard
    static String charClass;
    static ArrayList<String> items=new ArrayList<String>();
    static String[] equippedWeapon;
-   static int currentPotions=1;
+   static int currentPotions=8;
    static int maxPotions;
    static ArrayList<String> abilities= new ArrayList<String>();
    //index 0=name, 1=damage, 2=attack, 
@@ -67,7 +67,7 @@ public class Wizard
       sex=gender;
      // x=(int)(Math.random()*(length-2)+1);
       //y=(int)(Math.random()*(height-2)+1);
-      abilities.add("Attack");
+      //abilities.add("Attack");
       abilities.add("Defend");
       charClass=clas;
       charLevel=level;
@@ -76,7 +76,11 @@ public class Wizard
       switch (charClass)
       {
          case "Warrior":
-            abilities.add("Power Attack");
+            abilities.add("Stab");
+            abilities.add("Mortal Wound");
+            abilities.add("Battle Stance");
+            abilities.add("Fortify");
+            
             gold=Dice.roll(4,4);
             maxHP=Dice.roll(1,10);
          // increased damage but decreased chance to hit
@@ -86,22 +90,34 @@ public class Wizard
             gold=Dice.roll(3,6);
             maxHP=Dice.roll(1,6);
             currentMana=charLevel*20;
+            
             abilities.add("Fireball(5 mana)");
+            abilities.add("Lightning Bolt(5 mana)");
+            abilities.add("Healing(5 mana)");
+            abilities.add("Iron Skin(5 mana)");
          // uses mana, can only cast 4 firebolts at level one
             break;
          case "Archer":
-            abilities.add("True Shot");
+            abilities.add("Stab");
+            abilities.add("Incendiary Shot");
+            abilities.add("Keen Eye");
+            abilities.add("Paralysing Shot");
+            
             maxHP=Dice.roll(1,8);
             gold=Dice.roll(2,4);
          // decreased damage but increased chance to hit
             break;
          case "Rogue":
+            abilities.add("Stab");
+            abilities.add("Shadow Step");
+            abilities.add("Sucker Punch");
+            abilities.add("Vanish");
+                                    
             gold=Dice.roll(4,4);
             maxHP=Dice.roll(1,8);
-            abilities.add("Sucker Punch");
       }
       if (maxHP<3)
-      maxHP=3;
+         maxHP=3;
    }
    public static void setImage(int direction,int pos)
    {
@@ -115,10 +131,6 @@ public class Wizard
       //System.out.println(temp);
       //System.out.println(temp);
       weezard = new ImageIcon(temp);
-   }
-   public static ImageIcon getImage()
-   {
-   return weezard;
    }
    public int getX()
    {
@@ -134,7 +146,7 @@ public class Wizard
    }
    public ArrayList<String> getItems()
    {
-   return items;
+      return items;
    }
    public void giveGold(int recieved)
    {
@@ -229,11 +241,11 @@ public class Wizard
       else 
       {
          currentPotions--;
-         double tempHealed = (int)(Math.random()*30+20);
+         double tempHealed = (int)(Math.random()*40+30);
          tempHealed=tempHealed/100;
          currentHP+=(int)(maxHP*tempHealed);
          if (currentHP>maxHP)
-         currentHP=maxHP;
+            currentHP=maxHP;
       }
    }
    public ImageIcon getPic()
