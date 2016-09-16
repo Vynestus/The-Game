@@ -34,7 +34,7 @@ public class TownTalkMenu extends JPanel
    static int delay=3000;
    static JFrame tFrame;
    private static boolean tempBoolean=false;
-   static ImageIcon background= new ImageIcon("pictures\\Isteroth.jpg");
+   static ImageIcon background= new ImageIcon("./pictures/Isteroth.jpg");
    public TownTalkMenu() 
    {
       this.setLayout(new BorderLayout());
@@ -188,7 +188,7 @@ public class TownTalkMenu extends JPanel
    {
       
       
-      tempFile="TownText\\\\"+place+".txt";
+      tempFile="./TownText/"+place+".txt";
       try{
          File textList = new File(tempFile);
          System.out.println(tempFile);
@@ -248,7 +248,7 @@ public class TownTalkMenu extends JPanel
       independant=false;
       wiz=Yfir_Myrkr_Across_Darkness.getPlayer();
       place=space;
-      String temp="pictures\\"+place+".jpg";
+      String temp="./pictures/"+place+".jpg";
       background= new ImageIcon(temp);
       main(new String[3]);
    }

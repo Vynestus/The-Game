@@ -121,12 +121,12 @@ public class Wizard
    public static void setImage(int direction,int pos)
    {
       if (pos==2)pos=0;
-      String temp="CharacterImages\\\\";
+      String temp="./CharacterImages/";
       if (sex)
          temp += "Female";
       else
          temp += "Male";
-      temp += charClass+"\\\\"+direction+pos+".png";
+      temp += charClass+"/"+direction+pos+".png";
       //System.out.println(temp);
       //System.out.println(temp);
       weezard = new ImageIcon(temp);

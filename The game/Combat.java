@@ -228,7 +228,7 @@ public class Combat extends JPanel
       monster=new ImageIcon(image);
       
       wiz.setImage(0,0);
-      player=wiz.getImage();
+      player=wiz.getPic();
       image = player.getImage();
       image=image.getScaledInstance(150,150,Image.SCALE_DEFAULT);
       player=new ImageIcon(image);

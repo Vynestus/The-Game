@@ -36,7 +36,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    public static String biome="Plains";
    public static AudioInputStream audioIn;
    static Scanner scan= new Scanner(System.in);
-   static ImageIcon map = new ImageIcon("pictures\\Exeriarsis.png");
+   static ImageIcon map = new ImageIcon("./pictures/Exeriarsis.png");
    static ImageIcon townBackground;
    public static int questPos=1;
    private static Wizard wiz;
@@ -410,6 +410,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
       boolean tempBoolean=false;
       while (!tempBoolean)
       {
+         System.out.println("x");
          tempBoolean=MainMenuInitiator.finisher();
       }
       cFrame.setVisible(false);
@@ -419,7 +420,7 @@ public class Yfir_Myrkr_Across_Darkness extends JPanel
    {
       town=place;
    //System.out.println(town);
-     /* String temp="pictures\\"+place+".jpg";
+     /* String temp="./pictures/"+place+".jpg";
       townBackground= new ImageIcon(temp);
       tFrame = new JFrame(place);
       tFrame.setSize(1100, 700);

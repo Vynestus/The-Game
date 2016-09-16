@@ -21,8 +21,8 @@ public class MainMenuInitiator extends JPanel
    public static boolean skip=false;
    public static boolean cheat=false;
    private static boolean tempBoolean=false;
-   static ImageIcon extra = new ImageIcon("pictures\\Mainmenu Image.jpg");
-   static ImageIcon menuImage = new ImageIcon("pictures\\Exeriarsis.png");
+   static ImageIcon extra = new ImageIcon("./pictures/Mainmenu Image.jpg");
+   static ImageIcon menuImage = new ImageIcon("./pictures/Exeriarsis.png");
 
    public MainMenuInitiator()
    {  
@@ -73,21 +73,22 @@ public class MainMenuInitiator extends JPanel
       super.paintComponent(g);
       double temp=Math.random();
      // System.out.println(temp);
-      if(temp>.02)
+     // if(temp>.02)
          g.drawImage(menuImage.getImage(),0,0,1000,500,null);
-      else
-         g.drawImage(extra.getImage(),0,0,1000,500,null);  
+     // else
+     //    g.drawImage(extra.getImage(),0,0,1000,500,null);  
       
    }
    public static boolean finisher()
    {
+      System.out.println("polled.");
       return tempBoolean;
    }
    private static class SB implements ActionListener  
    {
       public void actionPerformed(ActionEvent e)
       {
-                 
+         System.out.println("Pressed start.");   
          tempBoolean=true;
       }
    }

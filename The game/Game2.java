@@ -53,11 +53,11 @@ public class Game2 extends JPanel {
    static int movingu=0;
    static String biome;
    public static boolean buttons=false;
-   static ImageIcon stairsUp = new ImageIcon("pictures\\stairsup.png");
-   static ImageIcon stairsDown = new ImageIcon("pictures\\stairsdown.png");
-   static ImageIcon wall = new ImageIcon("pictures\\wall.jpg");
-   static ImageIcon fog = new ImageIcon("pictures\\Fog.png");
-   static ImageIcon potion=new ImageIcon("pictures\\Items\\potion.png");
+   static ImageIcon stairsUp = new ImageIcon("./pictures/stairsup.png");
+   static ImageIcon stairsDown = new ImageIcon("./pictures/stairsdown.png");
+   static ImageIcon wall = new ImageIcon("./pictures/wall.jpg");
+   static ImageIcon fog = new ImageIcon("./pictures/Fog.png");
+   static ImageIcon potion=new ImageIcon("./pictures/Items/potion.png");
    static Color wallColor = new Color(0,0,0);
    static Color fogColor = new Color(100,100,100);
    public static JFrame frame; 
@@ -754,7 +754,7 @@ public class Game2 extends JPanel {
    public static boolean dungeonTime(int depth,String biomes,int level, double encounter,int dungeonNum) 
    {
    biome=biomes;
-   wall=new ImageIcon("pictures\\"+biome+".png");
+   wall=new ImageIcon("./pictures/"+biome+".png");
       mapList= new ArrayList<MazeGenerator>();
       finisher=true;
       encounterChance=encounter/100;
